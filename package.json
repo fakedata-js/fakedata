@@ -1,7 +1,7 @@
 {
-  "name": "regex-builder",
+  "name": "fakedata",
   "version": "1.0.0",
-  "description": "A library to generate regular expressions",
+  "description": "A library to generate fake data for testing",
   "main": "dist/lib.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js --mode=development",
@@ -12,20 +12,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tibabit/regex-builder.git"
+    "url": "git+https://github.com/tibabit/fakedata.git"
   },
   "keywords": [
-    "RegEx",
-    "Regular",
-    "Expressions",
-    "builder"
+    "Fake data",
+    "Mock data",
+    "Generator"
   ],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tibabit/regex-builder/issues"
+    "url": "https://github.com/tibabit/fakedata/issues"
   },
-  "homepage": "https://github.com/tibabit/regex-builder#readme",
+  "homepage": "https://github.com/tibabit/fakedata#readme",
   "devDependencies": {
     "@types/jest": "^28.1.6",
     "jest": "^28.1.3",
