@@ -1,5 +1,5 @@
 import FakeDataProvider from "../../provider";
-import BooleanFake, { BooleanFakeConfig } from "../boolean";
+import BooleanFake, { BooleanFakeConfig } from "./boolean";
 
 describe('Tests Boolean Fake Data', () => {
   it ('Returns true when random value is 0', () => {
