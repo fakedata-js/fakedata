@@ -12,10 +12,6 @@ export default abstract class Fake<T> {
     this.provider = provider
   }
 
-  random(max: number, min: number = 0) {
-    return Math.floor((Math.random() * (max - min)) + min)
-  }
-
   abstract initConfig(): IFakeConfig
   abstract generate(config: IFakeConfig): T
 }

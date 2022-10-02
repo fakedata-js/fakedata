@@ -7,3 +7,12 @@ export const extend = (...args: any[]) => {
     }
     return source
 }
+
+export const random = (max: number, min: number = 0) => {
+    return Math.floor((Math.random() * (max - min)) + min)
+}
+
+export default {
+    extend,
+    random,
+}

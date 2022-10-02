@@ -1,16 +1,15 @@
 import Fake, { IFakeConfig } from "../../fake";
-import { extend } from "../../util";
+import FakeDataProvider, { IFakeDataProvider } from "../../provider";
+import util from "../../util";
 
 export class BooleanFakeConfig implements IFakeConfig {
-
+  constructor(config?: Partial<BooleanFakeConfig>) {
+    util.extend(this, config || {})
+  }
 }
 
-export default class BooleanFake extends Fake<boolean> {
-  initConfig(): IFakeConfig{
-    return new BooleanFakeConfig()
-  }
-  generate(config?: BooleanFakeConfig): boolean {
-    config =  extend(this.initConfig(), config)
-    return this.provider.boolean[this.random(2, 0)]
-  }
+export default function BooleanFake(config?: Partial<BooleanFakeConfig>) {
+  config = new BooleanFakeConfig(config)
+  const provider: IFakeDataProvider = FakeDataProvider.get()
+  return provider.boolean[util.random(2, 0)]
 }

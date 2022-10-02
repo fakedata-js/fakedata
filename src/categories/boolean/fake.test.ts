@@ -1,16 +1,24 @@
-import FakeDataProvider from "../../provider";
-import BooleanFake, { BooleanFakeConfig } from "./fake";
+jest.mock('../../util')
+
+import BooleanFake from "./fake";
+import _ from '../../util'
+
 
 describe('Tests Boolean Fake Data', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
   it ('Returns true when random value is 0', () => {
-    const bool = new BooleanFake(new FakeDataProvider)
-    jest.spyOn(bool, 'random').mockReturnValueOnce(0)
-    expect(bool.generate(new BooleanFakeConfig)).toEqual(true)
+    const randomSpy = jest.spyOn(_, 'random').mockReturnValueOnce(0)
+    const value = BooleanFake()
+    expect(randomSpy).toHaveReturnedWith(0)
+    expect(value).toEqual(true)
   })
 
   it ('Returns false when random value is 1', () => {
-    const bool = new BooleanFake(new FakeDataProvider)
-    jest.spyOn(bool, 'random').mockReturnValueOnce(1)
-    expect(bool.generate(new BooleanFakeConfig)).toEqual(false)
+    const randomSpy = jest.spyOn(_, 'random').mockReturnValueOnce(1)
+    const value = BooleanFake()
+    expect(randomSpy).toHaveReturnedWith(1)
+    expect(value).toEqual(false)
   })
 })
