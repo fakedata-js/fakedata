@@ -1,11 +1,15 @@
-import BooleanFake from "./categories/boolean/fake";
+import BooleanFake, { BooleanFakeConfig } from "./categories/boolean/fake";
 import FakeDataProvider, { IFakeDataProvider } from "./provider";
 
 export class FakeData {
-  readonly boolean: BooleanFake
+  readonly _bool: BooleanFake
 
   constructor(provider: IFakeDataProvider) {
-    this.boolean = new BooleanFake(provider)
+    this._bool = new BooleanFake(provider)
+  }
+
+  bool(config?: BooleanFakeConfig) {
+    return this._bool.generate(config)
   }
 }
 

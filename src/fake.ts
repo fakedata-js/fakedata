@@ -10,14 +10,12 @@ export default abstract class Fake<T> {
 
   constructor(provider: IFakeDataProvider) {
     this.provider = provider
-    this.initDefaultConfig()
   }
 
   random(max: number, min: number = 0) {
     return Math.floor((Math.random() * (max - min)) + min)
   }
 
-  abstract initDefaultConfig(): void
+  abstract initConfig(): IFakeConfig
   abstract generate(config: IFakeConfig): T
-  abstract any(): T
 }

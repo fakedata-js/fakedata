@@ -1,19 +1,16 @@
 import Fake, { IFakeConfig } from "../../fake";
+import { extend } from "../../util";
 
 export class BooleanFakeConfig implements IFakeConfig {
 
 }
 
 export default class BooleanFake extends Fake<boolean> {
-  initDefaultConfig(): void {
-    this.config = new BooleanFakeConfig()
+  initConfig(): IFakeConfig{
+    return new BooleanFakeConfig()
   }
-
-  generate(config: BooleanFakeConfig): boolean {
+  generate(config?: BooleanFakeConfig): boolean {
+    config =  extend(this.initConfig(), config)
     return this.provider.boolean[this.random(2, 0)]
-  }
-
-  any(): boolean {
-    return this.generate(this.config)
   }
 }

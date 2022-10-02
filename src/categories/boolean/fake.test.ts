@@ -13,19 +13,4 @@ describe('Tests Boolean Fake Data', () => {
     jest.spyOn(bool, 'random').mockReturnValueOnce(1)
     expect(bool.generate(new BooleanFakeConfig)).toEqual(false)
   })
-
-  it ('Returns true or false randomly', () => {
-    const bool = new BooleanFake(new FakeDataProvider)
-    expect(`${bool.generate(new BooleanFakeConfig())}`).toMatch(/true|false/)
-  })
-
-  it ('Returns a value with default config', () => {
-    const bool = new BooleanFake(new FakeDataProvider)
-    const generate = jest.spyOn(bool, 'generate').mockReturnValueOnce(true).mockReturnValueOnce(false)
-    expect(bool.any()).toEqual(true)
-    expect(bool.any()).toEqual(false)
-    expect(generate).toBeCalledTimes(2)
-    expect(generate).toHaveBeenNthCalledWith(1, bool.config)
-    expect(generate).toHaveBeenNthCalledWith(2, bool.config)
-  })
 })
