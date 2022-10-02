@@ -1,5 +1,5 @@
 import FakeDataProvider from "../../provider";
-import BooleanFake, { BooleanFakeConfig } from "../boolean";
+import BooleanFake, { BooleanFakeConfig } from "./fake";
 
 describe('Tests Boolean Fake Data', () => {
   it ('Returns true when random value is 0', () => {
@@ -12,6 +12,11 @@ describe('Tests Boolean Fake Data', () => {
     const bool = new BooleanFake(new FakeDataProvider)
     jest.spyOn(bool, 'random').mockReturnValueOnce(1)
     expect(bool.generate(new BooleanFakeConfig)).toEqual(false)
+  })
+
+  it ('Returns true or false randomly', () => {
+    const bool = new BooleanFake(new FakeDataProvider)
+    expect(`${bool.generate(new BooleanFakeConfig())}`).toMatch(/true|false/)
   })
 
   it ('Returns a value with default config', () => {

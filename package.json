@@ -8,8 +8,9 @@
     "watch": "webpack --config=webpack.config.js --mode=development --watch",
     "prod:build": "webpack --config=webpack.config.js --mode=production",
     "test": "jest",
+    "test:watch": "jest --watchAll",
     "coverage": "jest --coverage",
-    "test:watch": "jest --watchAll"
+    "postcoverage": "jest-it-up"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
   "devDependencies": {
     "@types/jest": "^28.1.6",
     "jest": "^28.1.3",
+    "jest-it-up": "^2.0.2",
     "ts-jest": "^28.0.8",
     "ts-loader": "^9.3.1",
     "typescript": "^4.7.4",

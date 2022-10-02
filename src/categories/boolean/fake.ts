@@ -1,4 +1,4 @@
-import Fake, { IFakeConfig } from "../fake";
+import Fake, { IFakeConfig } from "../../fake";
 
 export class BooleanFakeConfig implements IFakeConfig {
 
