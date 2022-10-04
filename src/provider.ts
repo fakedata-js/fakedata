@@ -16,4 +16,10 @@ export default class FakeDataProvider implements IFakeDataProvider {
   readonly digits: string[] = DIGITS.split('')
   readonly puntuations: string[] = PUNCTUATION.split('')
   readonly spclChars: string[] = SPCL_CHARS.split('')
+
+  static _instance: IFakeDataProvider = new FakeDataProvider()
+
+  static get() {
+    return FakeDataProvider._instance
+  }
 }
