@@ -30,6 +30,9 @@ jobs:
           name: Run tests
           command: npm test
       - run:
+          name: Run Coverage
+          command: npm run coverage
+      - run:
           name: Build
           command: npm run build
 
