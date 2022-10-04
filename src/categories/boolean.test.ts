@@ -1,7 +1,7 @@
-jest.mock('../../util')
+jest.mock('../util')
 
-import BooleanFake from "./fake";
-import _ from '../../util'
+import BooleanFake from "./boolean";
+import _ from '../util'
 
 
 describe('Tests Boolean Fake Data', () => {

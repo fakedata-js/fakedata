@@ -1,4 +1,4 @@
-import BooleanFake from "./categories/boolean/fake";
+import BooleanFake from "./categories/boolean";
 
 export class FakeData {
   readonly bool = BooleanFake
