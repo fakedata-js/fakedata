@@ -1,5 +1,7 @@
 # fakedata
-A library to generate fake data for testing
+A library to generate fake data for testing with focus on customization
+
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/fakedata-js/fakedata/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/fakedata-js/fakedata/tree/main)
 
 
 ## Types of data
