@@ -8,7 +8,7 @@ export const extend = (...args: any[]) => {
     return source
 }
 
-export const random = (max: number, min: number = 0) => {
+export const random = (min: number, max: number) => {
     return Math.floor((Math.random() * (max - min)) + min)
 }
 

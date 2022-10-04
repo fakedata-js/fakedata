@@ -15,5 +15,5 @@ export default function IntegerFake (config?: IntFakeConfig) {
     fConfig.max = defaults.max
   }
 
-  return util.random(fConfig.max, fConfig.min)
+  return util.random(fConfig.min, fConfig.max)
 }
