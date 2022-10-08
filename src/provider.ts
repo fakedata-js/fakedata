@@ -19,7 +19,7 @@ export default class FakeDataProvider implements IFakeDataProvider {
 
   static _instance: IFakeDataProvider = new FakeDataProvider()
 
-  static get() {
+  static get (): FakeDataProvider {
     return FakeDataProvider._instance
   }
 }
