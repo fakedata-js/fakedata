@@ -36,9 +36,7 @@ describe('NumberFake', () => {
         expect(value).toEqual(25)
       })
     
-      it('When min value is greater than max value then default max value is used', () => {
-        const value = NumberFake({ min: 25, max: 20 })
-        expect(value).toBeGreaterThanOrEqual(25)
-        expect(value).toBeLessThanOrEqual(defaults.max)
+      it('Throws error when min value is greater than max value', () => {
+        expect(() => NumberFake({ min: 25, max: 20 })).toThrowError()
       })
 })

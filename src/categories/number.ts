@@ -12,9 +12,9 @@ type OptionalConfig = Partial<NumberFakeConfig>
 const normalizeConfig = (config?: OptionalConfig): NormalizedConfig<NumberFakeConfig> => {
   const fConfig: NormalizedConfig<NumberFakeConfig> = util.extend({ }, defaults, config ?? {})
 
-  if (fConfig.min > fConfig.max) {
-    fConfig.max = defaults.max
-  }
+  const { min, max } = util.fixRange(defaults, config)
+  fConfig.min = min
+  fConfig.max = max
   fConfig.normalized = true
 
   return fConfig

@@ -17,9 +17,9 @@ const normalizeConfig = (config?: OptionalConfig): NormalizedConfig<IntFakeConfi
   if (fConfig.normalized) {
     return fConfig
   }
-  if (fConfig.min > fConfig.max) {
-    fConfig.max = defaults.max
-  }
+  const { min, max } = util.fixRange(defaults, config)
+  fConfig.min = min
+  fConfig.max = max
   if (fConfig.padding < 0) {
     fConfig.padding = 0
   }
