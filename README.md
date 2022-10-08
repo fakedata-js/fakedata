@@ -8,13 +8,21 @@ A library to generate fake data for testing with focus on customization
 ### Basic
 - Boolean
 - Integer
-  - Range
+  - Range (default: [-10000000, 10000000])
   - Hex
-    - Uppercase
-    - Padding
+    - uppercase (default false)
+    - Padding (default 0)
 - Floating point number
 - Character
 - String
+  - Length (default undefined)
+  - Range (default [2, 10])
+  - Character set
+    - Lower alpha (default true)
+    - Uppaer alpha (default true)
+    - Digits (default true)
+    - Special chars  (default false)
+    - Punctuation  (default false)
 - Array
 - Object
 ### Date
