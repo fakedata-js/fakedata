@@ -1,4 +1,4 @@
-name: NodeJS with Webpack
+name: Build and Verify
 
 on:
   push:
@@ -32,7 +32,6 @@ jobs:
   test:
     name: Test & Coverage
     runs-on: ubuntu-latest
-    needs: build
 
     strategy:
       matrix:
@@ -49,3 +48,22 @@ jobs:
       run: npm install
     - name: Test & Coverage
       run: npm run coverage
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+    
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install
+      run: npm install
+    - name: ESLint
+      run: npm run eslint
