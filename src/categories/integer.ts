@@ -11,8 +11,8 @@ export const defaults = {
 export type IntFakeConfig = FromObject<typeof defaults>
 type OptionalConfig = Partial<IntFakeConfig>
 
-const normalizeConfig = (config?: OptionalConfig) => {
-  const fConfig: NormalizedConfig<IntFakeConfig> = util.extend({ }, defaults, config || {})
+const normalizeConfig = (config?: OptionalConfig): NormalizedConfig<IntFakeConfig> => {
+  const fConfig: NormalizedConfig<IntFakeConfig> = util.extend({ }, defaults, config ?? {})
 
   if (fConfig.normalized) {
     return fConfig
@@ -28,18 +28,18 @@ const normalizeConfig = (config?: OptionalConfig) => {
   return fConfig
 }
 
-export default function IntegerFake (config?: OptionalConfig) {
+export default function IntegerFake (config?: OptionalConfig): number {
   const fConfig = normalizeConfig(config)
   return util.random(fConfig.min, fConfig.max)
 }
 
-IntegerFake.hex = (config?: OptionalConfig) => {
+IntegerFake.hex = function (config?: OptionalConfig) {
   const fConfig = normalizeConfig(config)
 
   let value = IntegerFake(fConfig)
 
   if (value < 0) {
-    value = value>>>0
+    value = value >>> 0
   }
   let valueStr = value.toString(16)
 
@@ -50,4 +50,3 @@ IntegerFake.hex = (config?: OptionalConfig) => {
 
   return `0x${paddingStr}${valueStr}`
 }
-

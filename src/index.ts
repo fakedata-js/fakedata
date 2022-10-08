@@ -1,5 +1,5 @@
-import BooleanFake from "./categories/boolean";
-import IntegerFake from "./categories/integer";
+import BooleanFake from './categories/boolean'
+import IntegerFake from './categories/integer'
 
 export class FakeData {
   readonly bool = BooleanFake
