@@ -18,6 +18,13 @@ describe('Tests utility', () => {
             expect(max).toBe(10)
         })
 
+        it ('Returns default range when min and max values are set to undefined given', () => {
+            const { min, max } = util.fixRange( { min: 2, max: 10 }, { min: undefined, max: undefined })
+
+            expect(min).toBe(2)
+            expect(max).toBe(10)
+        })
+
         it ('Returns default min and given max value when only max value is given', () => {
             const { min, max } = util.fixRange( { min: 2, max: 10 }, { max: 100 })
 
