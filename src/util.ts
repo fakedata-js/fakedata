@@ -10,7 +10,12 @@ export const random = (min: number, max: number): number => {
   return Math.floor((Math.random() * (max - min)) + min)
 }
 
+export const randomDouble = (min: number, max: number): number => {
+  return (Math.random() * (max - min)) + min
+}
+
 export default {
   extend,
-  random
+  random,
+  randomDouble
 }
