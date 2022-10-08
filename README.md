@@ -8,8 +8,11 @@ A library to generate fake data for testing with focus on customization
 ### Basic
 - Boolean
 - Integer
-- Number (decimal, hexadecimal)
-- `NUL`, `undefined` and `NaN`
+  - Range
+  - Hex
+    - Uppercase
+    - Padding
+- Floating point number
 - Character
 - String
 - Array
@@ -68,3 +71,4 @@ A library to generate fake data for testing with focus on customization
 ## Customization
 - Character set
 - Locale
+## Choice
