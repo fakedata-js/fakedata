@@ -44,6 +44,7 @@ A library to generate fake data for testing with focus on customization
 - Between
 - Future
 - Past
+- Month and leap year
 ### Time
 - Current
 - Hour
@@ -53,6 +54,7 @@ A library to generate fake data for testing with focus on customization
 - Between
 - Future
 - Past
+- 12 vs 24 hr format
 ### Person
 - Name
 - First name

@@ -25,7 +25,7 @@ export default function ObjectFake (config: ObjectFakeConfig): any {
   return obj
 }
 
-ObjectFake.shape = function (config: ObjectFakeConfig): any {
+ObjectFake.alias = function (config: ObjectFakeConfig): any {
   return () => {
     return ObjectFake(config)
   }

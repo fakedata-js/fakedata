@@ -21,7 +21,7 @@ export default function ArrayFake<T> (length: number, fn: GeneratorFn<T>): T[] {
   return Array(fConfig.length).fill(undefined).map(() => fConfig.fn())
 }
 
-ArrayFake.shape = function <T>(length: number, fn: GeneratorFn<T>): () => T[] {
+ArrayFake.alias = function <T>(length: number, fn: GeneratorFn<T>): () => T[] {
   return () => {
     return ArrayFake(length, fn)
   }

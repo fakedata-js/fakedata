@@ -45,7 +45,7 @@ describe('ArrayFake', () => {
   })
 
   it ('Generates an array of Object', () => {
-    const arr = ArrayFake(3, ObjectFake.shape({ key: StringFake }))
+    const arr = ArrayFake(3, ObjectFake.alias({ key: StringFake }))
 
     expect(Array.isArray(arr)).toBe(true)
     expect(arr).toHaveLength(3)
