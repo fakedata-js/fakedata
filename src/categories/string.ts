@@ -1,5 +1,5 @@
 import { DIGITS, LOWER, UPPER } from '../constants/ascii'
-import { NormalizedConfig } from '../fake'
+import { normalizeConfig } from '../fake'
 import util from '../util'
 
 export interface StringFakeConfig {
@@ -21,12 +21,6 @@ export const defaults: StringFakeConfig = {
 }
 
 type OptionalConfig = Partial<StringFakeConfig>
-
-export const normalizeConfig = (config?: OptionalConfig): NormalizedConfig<StringFakeConfig> => {
-  const fConfig = util.extend({}, defaults, util.clean(config ?? {}))
-
-  return fConfig
-}
 
 export const getCharset = (config: StringFakeConfig): string => {
   let charset = config.charset
@@ -55,7 +49,7 @@ export const getCharset = (config: StringFakeConfig): string => {
 }
 
 export default function StringFake (config?: OptionalConfig): string {
-  const fConfig = normalizeConfig(config)
+  const fConfig = normalizeConfig(defaults, config)
   const length = fConfig.length ?? util.random(fConfig.min, fConfig.max)
   const charset = getCharset(fConfig)
 

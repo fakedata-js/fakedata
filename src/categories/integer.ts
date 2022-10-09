@@ -1,5 +1,12 @@
-import { FromObject, NormalizedConfig } from '../fake'
+import { normalizeConfig as _normalizeConfig } from '../fake'
 import util from '../util'
+
+export interface IntFakeConfig {
+  min: number
+  max: number
+  padding: number
+  upper: boolean
+}
 
 export const defaults = {
   min: -10000000,
@@ -8,22 +15,17 @@ export const defaults = {
   upper: false
 }
 
-export type IntFakeConfig = FromObject<typeof defaults>
 type OptionalConfig = Partial<IntFakeConfig>
 
-const normalizeConfig = (config?: OptionalConfig): NormalizedConfig<IntFakeConfig> => {
-  const fConfig: NormalizedConfig<IntFakeConfig> = util.extend({ }, defaults, config ?? {})
+const normalizeConfig = (config?: OptionalConfig): IntFakeConfig => {
+  const fConfig = _normalizeConfig(defaults, config)
 
-  if (fConfig.normalized) {
-    return fConfig
-  }
   const { min, max } = util.fixRange(defaults, config)
   fConfig.min = min
   fConfig.max = max
   if (fConfig.padding < 0) {
     fConfig.padding = 0
   }
-  fConfig.normalized = true
 
   return fConfig
 }

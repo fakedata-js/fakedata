@@ -1,5 +1,5 @@
 import { DIGITS, LOWER, UPPER } from "../constants/ascii";
-import StringFake, { defaults, getCharset, normalizeConfig } from "./string";
+import StringFake, { defaults, getCharset } from "./string";
 
 describe('StringFake', () => {
     it ('Generates a string of length betwwen default range', () => {
@@ -14,17 +14,6 @@ describe('StringFake', () => {
         const value = StringFake({ length: 20 })
         expect(value).toHaveLength(20)
     })
-    describe('normalizeConfig', () => {
-        it('Removes undefined and null values before normalization', () => {
-            const config = normalizeConfig({  upper: undefined, lower: undefined, digits: undefined })
-            expect(config).toMatchObject({
-                upper: true,
-                lower: true,
-                digits: true
-            })
-        })
-    })
-    
     describe('getCharset', () => {
         it ('Returns charset as it is when supplied by user', () => {
             const expected = 'ABCD'
