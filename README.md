@@ -29,6 +29,9 @@ A library to generate fake data for testing with focus on customization
     - Existing types
     - Custom generators
 - Object
+  - Custom and existing generators
+  - Nesting
+  - Constant values
 ### Date
 - Day
 - Date
