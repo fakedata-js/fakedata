@@ -33,24 +33,26 @@ A library to generate fake data for testing with focus on customization
   - Nesting
   - Constant values
 ### Date
-- Day
 - Date
+- Day
 - Month
 - Year
+- Weekday
 - Today
 - Tomorrow
 - Yesterday
-- Next
-- Previous
 - Between
+- Future
+- Past
 ### Time
+- Current
 - Hour
 - Minute
 - Second
 - Millisecond
 - Between
-### Word
-- Word
+- Future
+- Past
 ### Person
 - Name
 - First name
