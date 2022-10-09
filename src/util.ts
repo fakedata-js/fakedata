@@ -31,9 +31,25 @@ export const fixRange = (defaults: Range, opts?: Partial<Range>): Range => {
   return { min, max }
 }
 
+export const clean = <T>(obj: T, deep = true): T => {
+  const cleanObject = <U>(part: U): U => {
+    for (const key in part) {
+      if (part[key] == null) {
+        delete part[key] // eslint-disable-line @typescript-eslint/no-dynamic-delete
+      } else if (deep && typeof part[key] === 'object') {
+        part[key] = cleanObject(part[key])
+      }
+    }
+    return part
+  }
+
+  return cleanObject(obj)
+}
+
 export default {
   extend,
   random,
   randomDouble,
-  fixRange
+  fixRange,
+  clean
 }

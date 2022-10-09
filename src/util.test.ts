@@ -59,4 +59,50 @@ describe('Tests utility', () => {
             expect(() => util.fixRange( { min: 20, max: 100 }, { max: 10 })).toThrowError()
         })
     })
+
+    describe('cleanObject', () => {
+        it ('Removes all properties with values undefined or null', () => {
+            expect(util.clean({ a: 'a', b: undefined, c: null, d: 1 })).toStrictEqual({ a: 'a', d: 1})
+        })
+        it ('Removes all properties from array', () => {
+            expect(util.clean([
+                { a: 'a', b: undefined, c: null, d: 1 },
+                { a: 'b', b: undefined, c: null, d: 2 }
+            ])).toStrictEqual([{ a: 'a', d: 1 }, { a: 'b', d: 2 }])
+        })
+        
+        it ('Removes all nested properties with values undefined or null', () => {
+            expect(util.clean({
+                a: 'a',
+                b: {
+                    k1: undefined,
+                    k2: 12,
+                    k3: [
+                        { a: 'a', b: undefined, c: null, d: 1 },
+                    ]
+                },
+                c: null,
+                d: 1
+            })).toStrictEqual({ a: 'a', b: { k2: 12, k3: [{ a: 'a', d: 1 }]}, d: 1})
+        })
+
+        it ('Does not remove nested properties when deep is set to false', () => {
+            expect(util.clean({
+                a: 'a',
+                b: {
+                    k1: undefined,
+                    k2: 12,
+                },
+                c: null,
+                d: 1
+            }, false)).toStrictEqual({
+                a: 'a',
+                b: {
+                    k1: undefined,
+                    k2: 12,
+                },
+                d: 1
+            })
+        })
+    })
 })
