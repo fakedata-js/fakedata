@@ -22,8 +22,8 @@ export const defaults: StringFakeConfig = {
 
 type OptionalConfig = Partial<StringFakeConfig>
 
-const normalizeConfig = (config?: OptionalConfig): NormalizedConfig<StringFakeConfig> => {
-  const fConfig = util.extend({}, defaults, config ?? { })
+export const normalizeConfig = (config?: OptionalConfig): NormalizedConfig<StringFakeConfig> => {
+  const fConfig = util.extend({}, defaults, util.clean(config ?? {}))
 
   return fConfig
 }
@@ -38,6 +38,9 @@ export const getCharset = (config: StringFakeConfig): string => {
 
   const { upper, lower, digits } = config
 
+  if (!(upper || lower || digits)) {
+    throw new Error('One of upper, lower and digits must be set to true.')
+  }
   if (lower) {
     charset += LOWER
   }
