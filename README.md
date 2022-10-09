@@ -24,6 +24,10 @@ A library to generate fake data for testing with focus on customization
     - Special chars  (default false)
     - Punctuation  (default false)
 - Array
+  - Length (required)
+  - Generator (required)
+    - Existing types
+    - Custom generators
 - Object
 ### Date
 - Day
