@@ -22,4 +22,11 @@ describe('Entry point for fake data', () => {
     expect(Array.isArray(arr)).toBe(true)
     expect(arr).toHaveLength(3)
   })
+
+  it('Generates a fake object', () => {
+    const obj = fake.object({
+      key: fake.array(2, () => 2),
+    })
+    expect(obj).toMatchObject({ key: [2, 2]})
+  })
 })
