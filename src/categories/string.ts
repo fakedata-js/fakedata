@@ -56,3 +56,20 @@ export default function StringFake (config?: OptionalConfig): string {
   const arr = Array(length).fill(undefined).map(() => charset.charAt(util.random(0, charset.length - 1)))
   return arr.join('')
 }
+
+StringFake.t = function (parts: TemplateStringsArray, ...expressions: any) {
+  return () => {
+    return parts.reduce((all, part, index) => {
+      let value = ''
+      if (index < expressions.length) {
+        if (typeof expressions[index] === 'function') {
+          value = expressions[index].call(expressions[index])
+        } else {
+          value = expressions[index]
+        }
+      }
+      all += part + value
+      return all
+    }, '')
+  }
+}

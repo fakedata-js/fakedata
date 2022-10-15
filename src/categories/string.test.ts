@@ -41,4 +41,40 @@ describe('StringFake', () => {
             expect(() => getCharset({ ...defaults, upper: false, lower: false, digits: false })).toThrowError()
         })
     })
+
+    describe('String template', () => {
+        it('Generates string without an placeholder', () => {
+            const alias = StringFake.t`Hello world`
+            expect(alias()).toEqual('Hello world')
+        })
+
+        it('Generates string with one string placeholder', () => {
+            const alias = StringFake.t`Hello ${StringFake}`
+            expect(alias()).toMatch(/Hello [a-zA-Z0-9]+/)
+        })
+
+        it('Generates string with multiple placeholders', () => {
+            const alias = StringFake.t`My name is ${StringFake} and I live in ${StringFake}`
+            expect(alias()).toMatch(/My name is [a-zA-Z0-9]+ and I live in [a-zA-Z0-9]+/)
+        })
+
+        it('Generates string with multiple placeholders starting from a placeholder', () => {
+            const alias = StringFake.t`${StringFake}: Do something amazing, like ${StringFake}`
+            expect(alias()).toMatch(/[a-zA-Z0-9]+: Do something amazing, like [a-zA-Z0-9]+/)
+        })
+        
+        it('If placeholder contains a constant then values is used as is', () => {
+            const alias = StringFake.t`My name is ${'Vikash'} and I live in ${'India'}`
+            expect(alias()).toEqual('My name is Vikash and I live in India')
+        })
+
+        it('Generates different strings each time', () => {
+            const alias = StringFake.t`My name is ${StringFake} and I live in ${StringFake}`
+            const str1 = alias(), str2 = alias(), str3 = alias()
+
+            expect(str1).not.toEqual(str2)
+            expect(str1).not.toEqual(str3)
+            expect(str2).not.toEqual(str3)
+        })
+    })
 })
