@@ -1,4 +1,5 @@
 import { GeneratorFn } from '../fake'
+import util from '../util'
 
 export interface ArrayFakeConfig<T> {
   length: number
@@ -9,7 +10,7 @@ const normalizeConfig = <T>(config: ArrayFakeConfig<T>): ArrayFakeConfig<T> => {
   if (config.length == null || typeof config.length !== 'number') {
     throw new Error('Array length must be a number')
   }
-  if (config.fn == null || typeof config.fn !== 'function') {
+  if (config.fn == null || !util.isFunction(config.fn)) {
     throw new Error('Generator must be a function')
   }
 

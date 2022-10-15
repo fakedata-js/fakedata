@@ -46,10 +46,15 @@ export const clean = <T>(obj: T, deep = true): T => {
   return cleanObject(obj)
 }
 
+export const isFunction = <T>(fn: T): boolean => {
+  return (typeof fn === 'function')
+}
+
 export default {
   extend,
   random,
   randomDouble,
   fixRange,
-  clean
+  clean,
+  isFunction
 }

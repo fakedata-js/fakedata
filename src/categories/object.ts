@@ -1,3 +1,5 @@
+import util from "../util"
+
 export interface ObjectFakeConfig {
   [key: string]: any
 }
@@ -14,7 +16,7 @@ export default function ObjectFake (config: ObjectFakeConfig): any {
   const obj: any = {}
   for (const key in fConfig) {
     let value; const generator = fConfig[key]
-    if (typeof generator === 'function') {
+    if (util.isFunction(generator)) {
       value = generator()
     } else {
       value = generator

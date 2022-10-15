@@ -62,7 +62,7 @@ StringFake.t = function (parts: TemplateStringsArray, ...expressions: any) {
     return parts.reduce((all, part, index) => {
       let value = ''
       if (index < expressions.length) {
-        if (typeof expressions[index] === 'function') {
+        if (util.isFunction(expressions[index])) {
           value = expressions[index].call(expressions[index])
         } else {
           value = expressions[index]
