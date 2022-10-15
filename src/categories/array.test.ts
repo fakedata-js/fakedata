@@ -1,5 +1,7 @@
 import ArrayFake from "./array";
 import IntegerFake from "./integer";
+import ObjectFake from './object'
+import StringFake from './string'
 
 describe('ArrayFake', () => {
   it ('Generates an array of existing fake types of given length', () => {
@@ -40,6 +42,15 @@ describe('ArrayFake', () => {
     expect(Array.isArray(arr)).toBe(true)
     expect(arr).toHaveLength(3)
     expect(arr).toEqual([2, 'value1', {}])
+  })
+
+  it ('Generates an array of Object', () => {
+    const arr = ArrayFake(3, ObjectFake.alias({ key: StringFake }))
+
+    expect(Array.isArray(arr)).toBe(true)
+    expect(arr).toHaveLength(3)
+    const objShape = expect.objectContaining({ key: expect.stringMatching(/[a-zA-Z0-9]+/)})
+    expect(arr).toEqual([objShape, objShape, objShape])
   })
   it ('Throws an error when length is not a number', () => {
     expect(() => ArrayFake('str', () => 0)).toThrowError()

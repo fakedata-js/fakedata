@@ -29,25 +29,32 @@ A library to generate fake data for testing with focus on customization
     - Existing types
     - Custom generators
 - Object
+  - Custom and existing generators
+  - Nesting
+  - Constant values
 ### Date
-- Day
 - Date
+- Day
 - Month
 - Year
+- Weekday
 - Today
 - Tomorrow
 - Yesterday
-- Next
-- Previous
 - Between
+- Future
+- Past
+- Month and leap year
 ### Time
+- Current
 - Hour
 - Minute
 - Second
 - Millisecond
 - Between
-### Word
-- Word
+- Future
+- Past
+- 12 vs 24 hr format
 ### Person
 - Name
 - First name
