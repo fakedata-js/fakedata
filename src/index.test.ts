@@ -1,6 +1,16 @@
 import fake from './index'
 
 describe('Entry point for fake data', () => {
+  it.each([
+    ['bool'],
+    ['int'],
+    ['number'],
+    ['string'],
+    ['array'],
+    ['object'],
+  ])('Has correct interface for %s', (prop) => {
+    expect(typeof fake[prop]).toBe('function')
+  })
   it('Generates a fake boolean value', () => {
     expect(`${fake.bool()}`).toMatch(/true|false/)
   })
