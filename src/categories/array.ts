@@ -1,29 +1,32 @@
-import { GeneratorFn } from '../fake'
-import util from '../util'
+import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
+import util, { bind } from '../core/util'
 
-export interface ArrayFakeConfig<T> {
+export interface IArrayOptions<T = any> {
   length: number
   fn: GeneratorFn<T>
 }
 
-const normalizeConfig = <T>(config: ArrayFakeConfig<T>): ArrayFakeConfig<T> => {
-  if (config.length == null || typeof config.length !== 'number') {
-    throw new Error('Array length must be a number')
+export default class ArrayPlugin extends BasePlugin implements IPluginInterface {
+  @bind
+  any<T>(length: number, fn: GeneratorFn<T>): T[] {
+    const opts = this.opts({ length, fn })
+
+    return Array(opts.length).fill(undefined).map(() => opts.fn())
   }
-  if (config.fn == null || !util.isFunction(config.fn)) {
-    throw new Error('Generator must be a function')
+
+  @bind
+  with<T>(length: number, fn: GeneratorFn<T>): () => T[] {
+    return () => this.any(length, fn)
   }
 
-  return config
-}
+  opts (options: IArrayOptions): IArrayOptions {
+    if (options.length == null || typeof options.length !== 'number') {
+      throw new Error('Array length must be a number')
+    }
+    if (options.fn == null || !util.isFunction(options.fn)) {
+      throw new Error('Generator must be a function')
+    }
 
-export default function ArrayFake<T> (length: number, fn: GeneratorFn<T>): T[] {
-  const fConfig = normalizeConfig({ length, fn })
-  return Array(fConfig.length).fill(undefined).map(() => fConfig.fn())
-}
-
-ArrayFake.alias = function <T>(length: number, fn: GeneratorFn<T>): () => T[] {
-  return () => {
-    return ArrayFake(length, fn)
+    return options
   }
 }

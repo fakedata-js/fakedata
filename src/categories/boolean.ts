@@ -1,7 +1,12 @@
-import FakeDataProvider, { IFakeDataProvider } from '../provider'
-import util from '../util'
+import BasePlugin, { IPluginInterface } from '../core/base'
+import util, { bind } from '../core/util'
 
-export default function BooleanFake (): boolean {
-  const provider: IFakeDataProvider = FakeDataProvider.get()
-  return provider.boolean[util.random(0, 2)]
+export interface IBooleanOptions {
+
+}
+export default class BooleanPlugin extends BasePlugin implements IPluginInterface {
+  @bind
+  any (options: Partial<IBooleanOptions> = {}): boolean {
+    return this.provider.boolean[util.random(0, 2)]
+  }
 }

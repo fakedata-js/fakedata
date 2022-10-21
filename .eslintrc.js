@@ -14,5 +14,8 @@ module.exports = {
     project: ['./tsconfig.json']
   },
   rules: {
+    "@typescript-eslint/no-empty-interface": ['warn'],
+    "@typescript-eslint/consistent-type-assertions": ['warn'],
+    "@typescript-eslint/no-dynamic-delete": ['warn']
   }
 }

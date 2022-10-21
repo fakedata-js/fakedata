@@ -1,29 +1,30 @@
-import { normalizeConfig as _normalizeConfig } from '../fake'
-import util from '../util'
+import { MAX_NUMBER, MIN_NUMBER } from '../core/constants'
+import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
+import util, { bind, Range } from '../core/util'
 
-export interface NumberFakeConfig {
+export interface INumberOptions {
   min: number
   max: number
 }
 
-export const defaults = {
-  min: -10000000,
-  max: 10000000
-}
+export default class NumberPlugin extends BasePlugin implements IPluginInterface {
+  readonly defaults = {
+    min: MIN_NUMBER,
+    max: MAX_NUMBER
+  }
 
-type OptionalConfig = Partial<NumberFakeConfig>
+  @bind
+  any (options: Partial<INumberOptions> = {}): number {
+    const range = this.fixRange(options)
+    return util.randomDouble(range.min, range.max)
+  }
 
-const normalizeConfig = (config?: OptionalConfig): NumberFakeConfig => {
-  const fConfig = _normalizeConfig(defaults, config)
+  @bind
+  with (options: Partial<INumberOptions> = {}): GeneratorFn<number> {
+    return () => this.any(options)
+  }
 
-  const { min, max } = util.fixRange(defaults, config)
-  fConfig.min = min
-  fConfig.max = max
-
-  return fConfig
-}
-
-export default function NumberFake (config?: OptionalConfig): number {
-  const fConfig = normalizeConfig(config)
-  return util.randomDouble(fConfig.min, fConfig.max)
+  fixRange (range: Partial<Range>): Range {
+    return util.fixRange(this.defaults, range)
+  }
 }

@@ -1,34 +1,42 @@
-import util from '../util'
+import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
+import util, { bind } from '../core/util'
 
-export interface ObjectFakeConfig {
+export interface IObjectOptions {
   [key: string]: any
 }
 
-const normalizeConfig = (config: ObjectFakeConfig): ObjectFakeConfig => {
-  if (config == null || typeof config !== 'object' || Array.isArray(config)) {
-    throw new Error('config must be an object')
-  }
-  return config
+export interface Shape {
+  [key: string]: any
 }
 
-export default function ObjectFake (config: ObjectFakeConfig): any {
-  const fConfig = normalizeConfig(config)
-  const obj: any = {}
-  for (const key in fConfig) {
-    let value; const generator = fConfig[key]
-    if (util.isFunction(generator)) {
-      value = generator()
-    } else {
-      value = generator
+export default class ObjectPlugin extends BasePlugin implements IPluginInterface {
+  @bind
+  any (options: Partial<IObjectOptions> = {}): Shape {
+    const opts = this.opts(options)
+
+    const obj: any = {}
+    for (const key in opts) {
+      let value; const generator = opts[key]
+      if (util.isFunction(generator)) {
+        value = generator()
+      } else {
+        value = generator
+      }
+      obj[key] = value
     }
-    obj[key] = value
+
+    return obj
   }
 
-  return obj
-}
+  @bind
+  with (config: IObjectOptions): GeneratorFn<Shape> {
+    return () => this.any(config)
+  }
 
-ObjectFake.alias = function (config: ObjectFakeConfig): any {
-  return () => {
-    return ObjectFake(config)
+  opts (options: IObjectOptions): IObjectOptions {
+    if (options == null || typeof options !== 'object' || Array.isArray(options)) {
+      throw new Error('config must be an object')
+    }
+    return options
   }
 }

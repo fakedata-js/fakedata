@@ -1,17 +1,22 @@
+import DataProvider from "../core/provider";
 import ArrayFake from "./array";
 import IntegerFake from "./integer";
-import ObjectFake from './object'
+// import ObjectFake from './object'
 import StringFake from './string'
 
+const provider = new DataProvider
+const int = new IntegerFake(provider)
+const string = new StringFake(provider)
+const newFaker = () => new ArrayFake(provider)
 describe('ArrayFake', () => {
   it ('Generates an array of existing fake types of given length', () => {
-    const arr = ArrayFake(5, IntegerFake.hex)
+    const arr = newFaker().any(5, int.any)
 
     expect(Array.isArray(arr)).toBe(true)
     expect(arr).toHaveLength(5)
 
-    const hexRegex = /0x[a-f0-9]{0,8}/
-    expect(arr).toEqual([
+    const hexRegex = /\d+/
+    expect(arr.map(n => `${n}`)).toEqual([
       expect.stringMatching(hexRegex),
       expect.stringMatching(hexRegex),
       expect.stringMatching(hexRegex),
@@ -25,7 +30,7 @@ describe('ArrayFake', () => {
       .mockReturnValueOnce(2)
       .mockReturnValueOnce(3)
       .mockReturnValueOnce(4)
-    const arr = ArrayFake(3, fn)
+    const arr = newFaker().any(3, fn)
 
     expect(Array.isArray(arr)).toBe(true)
     expect(arr).toHaveLength(3)
@@ -37,33 +42,25 @@ describe('ArrayFake', () => {
       .mockReturnValueOnce(2)
       .mockReturnValueOnce('value1')
       .mockReturnValueOnce({})
-    const arr = ArrayFake(3, fn)
+    const arr = newFaker().any(3, fn)
 
     expect(Array.isArray(arr)).toBe(true)
     expect(arr).toHaveLength(3)
     expect(arr).toEqual([2, 'value1', {}])
   })
 
-  it ('Generates an array of Object', () => {
-    const arr = ArrayFake(3, ObjectFake.alias({ key: StringFake }))
-
-    expect(Array.isArray(arr)).toBe(true)
-    expect(arr).toHaveLength(3)
-    const objShape = expect.objectContaining({ key: expect.stringMatching(/[a-zA-Z0-9]+/)})
-    expect(arr).toEqual([objShape, objShape, objShape])
-  })
   it ('Throws an error when length is not a number', () => {
-    expect(() => ArrayFake('str', () => 0)).toThrowError()
+    expect(() => newFaker().any('str', () => 0)).toThrowError()
   })
   it ('Throws an error when length is undefined or null', () => {
-    expect(() => ArrayFake(undefined, () => 0)).toThrowError()
-    expect(() => ArrayFake(null, () => 0)).toThrowError()
+    expect(() => newFaker().any(undefined, () => 0)).toThrowError()
+    expect(() => newFaker().any(null, () => 0)).toThrowError()
   })
   it ('Throws an error when generator is not a function', () => {
-    expect(() => ArrayFake(3, 4)).toThrowError()
+    expect(() => newFaker().any(3, 4)).toThrowError()
   })
   it ('Throws an error when generator is undefined or null', () => {
-    expect(() => ArrayFake(3, undefined)).toThrowError()
-    expect(() => ArrayFake(3, null)).toThrowError()
+    expect(() => newFaker().any(3, undefined)).toThrowError()
+    expect(() => newFaker().any(3, null)).toThrowError()
   })
 })
