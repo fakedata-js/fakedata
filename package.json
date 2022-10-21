@@ -12,8 +12,7 @@
     "coverage": "jest --coverage",
     "postcoverage": "jest-it-up",
     "eslint": "eslint src",
-    "eslint:fix": "eslint src --fix",
-    "prepare": "husky install"
+    "eslint:fix": "eslint src --fix"
   },
   "repository": {
     "type": "git",
@@ -38,7 +37,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.3.0",
     "eslint-plugin-promise": "^6.0.1",
-    "husky": "^8.0.1",
     "jest": "^28.1.3",
     "jest-it-up": "^2.0.2",
     "ts-jest": "^28.0.8",
