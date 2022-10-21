@@ -8,6 +8,7 @@ describe('Entry point for fake data', () => {
     ['string'],
     ['array'],
     ['object'],
+    ['from'],
   ])('Has correct interface for %s', (prop) => {
     expect(typeof fake[prop]).toBe('function')
   })
