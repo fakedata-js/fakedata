@@ -42,4 +42,11 @@ describe('Tests Interger fake generator', () => {
   it('Throws error when min value is greater than max value', () => {
     expect(() => newFaker({ min: 25, max: 20 })).toThrowError()
   })
+
+  it('Generates number from aliased generator', () => {
+    const alias = new IntegerFake(new DataProvider).with({ min: 100, max: 200 })
+    const value = alias()
+    expect(value).toBeGreaterThanOrEqual(100)
+    expect(value).toBeLessThanOrEqual(200)
+  })
 })

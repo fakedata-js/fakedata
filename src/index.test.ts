@@ -2,16 +2,31 @@ import fake from './index'
 
 describe('Entry point for fake data', () => {
   it.each([
-    ['bool'],
-    ['int'],
-    ['number'],
-    ['string'],
-    ['array'],
-    ['object'],
-    ['from'],
-  ])('Has correct interface for %s', (prop) => {
+    ['bool', []],
+    ['int', []],
+    ['number', []],
+    ['string', []],
+    ['array', [1, () => 1]],
+    ['object', []],
+    ['from', [[1, 2]]],
+  ])('Has correct interface for %s', (prop, args) => {
     expect(typeof fake[prop]).toBe('function')
+    expect(() => fake[prop].apply(null, args)).not.toThrowError()
   })
+
+  it.each([
+    ['intWith', []],
+    ['numberWith', []],
+    ['stringWith', []],
+    ['arrayWith', [1, () => 1]],
+    ['objectWith', []],
+    ['fromWith', [[1, 2]]],
+  ])('Has correct interface for %s', (prop, args) => {
+    expect(typeof fake[prop]).toBe('function')
+    const alias = fake[prop].apply(null, args)
+    expect(alias).not.toThrowError()
+  })
+
   it('Generates a fake boolean value', () => {
     expect(`${fake.bool()}`).toMatch(/true|false/)
   })

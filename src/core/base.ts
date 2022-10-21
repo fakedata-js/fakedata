@@ -9,6 +9,7 @@ export type GeneratorFn<T> = (options?: {}) => T
 
 export interface IPluginInterface {
   any: Function
+  with?: Function
 }
 
 export default abstract class BasePlugin {

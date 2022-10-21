@@ -16,9 +16,7 @@ export default class ArrayPlugin extends BasePlugin implements IPluginInterface 
 
   @bind
   with<T>(length: number, fn: GeneratorFn<T>): () => T[] {
-    return () => {
-      return this.any(length, fn)
-    }
+    return () => this.any(length, fn)
   }
 
   opts (options: IArrayOptions): IArrayOptions {

@@ -1,4 +1,4 @@
-import BasePlugin, { IPluginInterface } from '../core/base'
+import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
 import util, { bind } from '../core/util'
 
 export interface IObjectOptions {
@@ -29,10 +29,8 @@ export default class ObjectPlugin extends BasePlugin implements IPluginInterface
   }
 
   @bind
-  with (config: IObjectOptions): Shape {
-    return () => {
-      return this.any(config)
-    }
+  with (config: IObjectOptions): GeneratorFn<Shape> {
+    return () => this.any(config)
   }
 
   opts (options: IObjectOptions): IObjectOptions {

@@ -1,5 +1,5 @@
 import { DIGITS, LOWER, UPPER } from '../core/constants'
-import BasePlugin, { IPluginInterface } from '../core/base'
+import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
 import util, { bind } from '../core/util'
 
 export interface IStringOptions {
@@ -29,6 +29,11 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
 
     const arr = Array(length).fill(undefined).map(() => charset.charAt(util.random(0, charset.length - 1)))
     return arr.join('')
+  }
+
+  @bind
+  with (options: Partial<IStringOptions> = {}): GeneratorFn<string> {
+    return () => this.any(options)
   }
 
   @bind

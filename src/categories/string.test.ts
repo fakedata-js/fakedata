@@ -25,6 +25,11 @@ describe('StringFake', () => {
         expect(() => faker.any({ length: -10 })).toThrowError()
     })
 
+    it ('Generates a string from aliased generator', () => {
+        const alias = newFaker().with({ length: 20 })
+        expect(alias()).toHaveLength(20)
+    })
+
     describe('getCharset', () => {
         it ('Returns charset as it is when supplied by user', () => {
             const expected = 'ABCD'
