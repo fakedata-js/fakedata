@@ -1,8 +1,8 @@
 import { MAX_NUMBER, MIN_NUMBER } from '../core/constants'
-import FakeDataProvider from '../core/provider'
+import DataProvider from '../core/provider'
 import NumberFake from './number'
 
-const newFaker = (opts?) => new NumberFake(new FakeDataProvider).any(opts)
+const newFaker = (opts?) => new NumberFake(new DataProvider).any(opts)
 describe('NumberFake', () => {
     it ('Generates a random number between a range', () => {
         const value = newFaker()

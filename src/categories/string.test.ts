@@ -1,8 +1,8 @@
 import { DIGITS, LOWER, UPPER } from "../core/constants";
-import FakeDataProvider from "../core/provider";
+import DataProvider from "../core/provider";
 import StringFake from "./string";
 
-const newFaker = () => new StringFake(new FakeDataProvider)
+const newFaker = () => new StringFake(new DataProvider)
 
 describe('StringFake', () => {
     it ('Generates a string of length betwwen default range', () => {

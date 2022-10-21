@@ -1,4 +1,4 @@
-import { IFakeDataProvider } from './provider'
+import { IDataProvider } from './provider'
 import util from './util'
 
 export const normalizeConfig = <T>(defaults: T, config?: Partial<T>): T => {
@@ -12,10 +12,10 @@ export interface IPluginInterface {
 }
 
 export default abstract class BasePlugin {
-  protected readonly provider: IFakeDataProvider
+  protected readonly provider: IDataProvider
   readonly defaults = {}
 
-  constructor (provider: IFakeDataProvider) {
+  constructor (provider: IDataProvider) {
     this.provider = provider
   }
 

@@ -1,4 +1,4 @@
-import FakeDataProvider, { IFakeDataProvider } from './core/provider'
+import DataProvider, { IDataProvider } from './core/provider'
 import BooleanFake from './categories/boolean'
 import { GeneratorFn } from './core/base'
 import ArrayFake from './categories/array'
@@ -8,7 +8,7 @@ import ObjectFake, { IObjectOptions, Shape } from './categories/object'
 import StringFake, { IStringOptions } from './categories/string'
 
 export class FakeData {
-  private readonly provider: FakeDataProvider
+  private readonly provider: DataProvider
   bool!: () => boolean
   int!: (opts?: INumberOptions) => number
   number!: (opts?: INumberOptions) => number
@@ -16,7 +16,7 @@ export class FakeData {
   array!: <T>(size: number, fn: GeneratorFn<T>) => T[]
   object!: (opts?: IObjectOptions) => Shape
 
-  constructor (provider: IFakeDataProvider) {
+  constructor (provider: IDataProvider) {
     this.provider = provider
 
     this.initFakers()
@@ -32,4 +32,4 @@ export class FakeData {
   }
 }
 
-export default new FakeData(new FakeDataProvider())
+export default new FakeData(new DataProvider())

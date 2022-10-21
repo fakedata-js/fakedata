@@ -1,11 +1,11 @@
 jest.mock('../core/util')
 
-import BooleanFake from "./boolean";
+import Boolean from "./boolean";
 import _ from '../core/util'
 import Proivder from '../core/provider'
 
 
-const newFaker = () => new BooleanFake(new Proivder)
+const newFaker = () => new Boolean(new Proivder)
 describe('Tests Boolean Fake Data', () => {
   beforeEach(() => {
     jest.clearAllMocks()

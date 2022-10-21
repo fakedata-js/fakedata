@@ -1,10 +1,10 @@
 import IntegerFake from './integer'
 
 import util from '../core/util'
-import FakeDataProvider from '../core/provider'
+import DataProvider from '../core/provider'
 import { MAX_NUMBER, MIN_NUMBER } from '../core/constants'
 
-const newFaker = (opts?) => new IntegerFake(new FakeDataProvider).any(opts)
+const newFaker = (opts?) => new IntegerFake(new DataProvider).any(opts)
 
 describe('Tests Interger fake generator', () => {
   beforeEach(() => {

@@ -2,9 +2,9 @@ import IntegerFake from './integer'
 import ObjectFake from './object'
 import StringFake from './string'
 import ArrayFake from './array'
-import FakeDataProvider from '../core/provider'
+import DataProvider from '../core/provider'
 
-const provider = new FakeDataProvider
+const provider = new DataProvider
 const int = new IntegerFake(provider)
 const string = new StringFake(provider)
 const array = new ArrayFake(provider)
