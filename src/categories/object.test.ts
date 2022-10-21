@@ -38,7 +38,7 @@ describe('ObjectFake', () => {
 
   it ('Generates an object with nested fake object', () => {
     const obj = newFaker().any({
-      key: newFaker().alias({
+      key: newFaker().with({
         key1: true,
         key2: string.any
       })
@@ -55,7 +55,7 @@ describe('ObjectFake', () => {
   it ('Generates an object with nested fake array', () => {
     const fn = jest.fn(() => 0).mockReturnValueOnce(1).mockReturnValueOnce(2).mockReturnValueOnce(3)
     const obj = newFaker().any({
-      key1: array.alias(3, fn),
+      key1: array.with(3, fn),
       key2: array.any(3, () => 4)
     })
 
@@ -68,7 +68,7 @@ describe('ObjectFake', () => {
   it ('Generates an object with nested fake array', () => {
     const fn = jest.fn(() => 0).mockReturnValueOnce(1).mockReturnValueOnce(2).mockReturnValueOnce(3)
     const obj = newFaker().any({
-      key1: array.alias(3, fn),
+      key1: array.with(3, fn),
       key2: array.any(3, () => 4)
     })
 

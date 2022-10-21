@@ -29,7 +29,7 @@ export default class ObjectPlugin extends BasePlugin<IObjectOptions> implements 
   }
 
   @bind
-  alias (config: IObjectOptions): Shape {
+  with (config: IObjectOptions): Shape {
     return () => {
       return this.any(config)
     }

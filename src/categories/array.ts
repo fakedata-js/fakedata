@@ -15,7 +15,7 @@ export default class ArrayPlugin extends BasePlugin<IArrayOptions> implements Mu
   }
 
   @bind
-  alias<T>(length: number, fn: GeneratorFn<T>): () => T[] {
+  with<T>(length: number, fn: GeneratorFn<T>): () => T[] {
     return () => {
       return this.any(length, fn)
     }
