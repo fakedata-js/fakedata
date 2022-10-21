@@ -1,5 +1,5 @@
 import { DIGITS, LOWER, UPPER } from '../core/constants'
-import BasePlugin, { SingleValueInterface } from '../core/base'
+import BasePlugin, { IPluginInterface } from '../core/base'
 import util, { bind } from '../util'
 
 export interface IStringOptions {
@@ -12,10 +12,18 @@ export interface IStringOptions {
   digits: boolean
 }
 
-export default class StringPlugin extends BasePlugin<IStringOptions> implements SingleValueInterface<string, IStringOptions> {
+export default class StringPlugin extends BasePlugin implements IPluginInterface {
+  readonly defaults = {
+    min: 2,
+    max: 10,
+    upper: true,
+    lower: true,
+    digits: true
+  }
+
   @bind
   any (options: Partial<IStringOptions> = {}): string {
-    const opts = this.normalizeOptions(options)
+    const opts = this.opts(options)
     const length = opts.length ?? util.random(opts.min, opts.max)
     const charset = this.getCharset(opts)
 
@@ -41,22 +49,11 @@ export default class StringPlugin extends BasePlugin<IStringOptions> implements 
     }
   }
 
-  initDefaults (): void {
-    super.initDefaults()
-    this.defaults = util.extend(this.defaults, {
-      min: 2,
-      max: 10,
-      upper: true,
-      lower: true,
-      digits: true
-    })
-  }
-
-  normalizeOptions (options: Partial<IStringOptions>): IStringOptions {
+  opts (options: Partial<IStringOptions>): IStringOptions {
     if (typeof options.length === 'number' && options.length < 0) {
       throw new Error('String length cannot be negative')
     }
-    return super.normalizeOptions(options)
+    return super.opts(options)
   }
 
   getCharset (opts: IStringOptions): string {

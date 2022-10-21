@@ -1,4 +1,4 @@
-import BasePlugin, { SingleValueInterface } from '../core/base'
+import BasePlugin, { IPluginInterface } from '../core/base'
 import util, { bind } from '../util'
 
 export interface IObjectOptions {
@@ -9,10 +9,10 @@ export interface Shape {
   [key: string]: any
 }
 
-export default class ObjectPlugin extends BasePlugin<IObjectOptions> implements SingleValueInterface<Shape, IObjectOptions> {
+export default class ObjectPlugin extends BasePlugin implements IPluginInterface {
   @bind
   any (options: Partial<IObjectOptions> = {}): Shape {
-    const opts = this.normalizeOptions(options)
+    const opts = this.opts(options)
 
     const obj: any = {}
     for (const key in opts) {
@@ -35,7 +35,7 @@ export default class ObjectPlugin extends BasePlugin<IObjectOptions> implements 
     }
   }
 
-  normalizeOptions (options: Partial<IObjectOptions>): IObjectOptions {
+  opts (options: IObjectOptions): IObjectOptions {
     if (options == null || typeof options !== 'object' || Array.isArray(options)) {
       throw new Error('config must be an object')
     }

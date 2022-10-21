@@ -29,13 +29,13 @@ describe('StringFake', () => {
         it ('Returns charset as it is when supplied by user', () => {
             const expected = 'ABCD'
             const faker = newFaker()
-            expect(faker.getCharset(faker.normalizeOptions({ charset: expected }))).toEqual(expected)
+            expect(faker.getCharset(faker.opts({ charset: expected }))).toEqual(expected)
         })
     
         it ('Returns default charset when charset, upper, lower and digits options are not set', () => {
             const expected = LOWER + UPPER + DIGITS
             const faker = newFaker()
-            expect(faker.getCharset(faker.normalizeOptions({ }))).toEqual(expected)
+            expect(faker.getCharset(faker.opts({ }))).toEqual(expected)
         })
     
         it.each`
@@ -48,12 +48,12 @@ describe('StringFake', () => {
         ${true}|${false}|${false}|${UPPER}
         ` ('When upper=$upper, lower=$lower and digits=$digits then charset should be $expected', ({ upper, lower, digits, expected}) => {
             const faker = newFaker()
-            expect(faker.getCharset(faker.normalizeOptions({ upper, lower, digits }))).toEqual(expected)
+            expect(faker.getCharset(faker.opts({ upper, lower, digits }))).toEqual(expected)
         })
     
         it('Throws error when upper, lower and digits all are set to false', () => {
             const faker = newFaker()
-            expect(() => faker.getCharset(faker.normalizeOptions({ upper: false, lower: false, digits: false }))).toThrowError()
+            expect(() => faker.getCharset(faker.opts({ upper: false, lower: false, digits: false }))).toThrowError()
         })
     })
 

@@ -7,31 +7,19 @@ export const normalizeConfig = <T>(defaults: T, config?: Partial<T>): T => {
 
 export type GeneratorFn<T> = (options?: {}) => T
 
-export interface IFakeDataGenerator {
+export interface IPluginInterface {
+  any: Function
 }
 
-export interface SingleValueInterface<TValue, TOptions> {
-  any: (options: Partial<TOptions>) => TValue
-}
-
-export interface MultiValueInterface {
-  any: <TValue>(size: number, fn: GeneratorFn<TValue>) => TValue[]
-}
-
-export default abstract class BasePlugin<TOptions> implements IFakeDataGenerator {
+export default abstract class BasePlugin {
   protected readonly provider: IFakeDataProvider
-  protected defaults!: TOptions
+  readonly defaults = {}
 
   constructor (provider: IFakeDataProvider) {
     this.provider = provider
-    this.initDefaults()
   }
 
-  initDefaults (): void {
-    this.defaults = {} as TOptions
-  }
-
-  normalizeOptions (options: Partial<TOptions>): TOptions {
+  opts (options: any): any {
     return util.extend({}, this.defaults, util.clean(options))
   }
 }

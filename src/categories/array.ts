@@ -1,4 +1,4 @@
-import BasePlugin, { GeneratorFn, MultiValueInterface } from '../core/base'
+import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
 import util, { bind } from '../util'
 
 export interface IArrayOptions<T = any> {
@@ -6,10 +6,10 @@ export interface IArrayOptions<T = any> {
   fn: GeneratorFn<T>
 }
 
-export default class ArrayPlugin extends BasePlugin<IArrayOptions> implements MultiValueInterface {
+export default class ArrayPlugin extends BasePlugin implements IPluginInterface {
   @bind
   any<T>(length: number, fn: GeneratorFn<T>): T[] {
-    const opts = this.normalizeOptions({ length, fn })
+    const opts = this.opts({ length, fn })
 
     return Array(opts.length).fill(undefined).map(() => opts.fn())
   }
@@ -21,7 +21,7 @@ export default class ArrayPlugin extends BasePlugin<IArrayOptions> implements Mu
     }
   }
 
-  normalizeOptions (options: Partial<IArrayOptions>): IArrayOptions {
+  opts (options: IArrayOptions): IArrayOptions {
     if (options.length == null || typeof options.length !== 'number') {
       throw new Error('Array length must be a number')
     }
@@ -29,6 +29,6 @@ export default class ArrayPlugin extends BasePlugin<IArrayOptions> implements Mu
       throw new Error('Generator must be a function')
     }
 
-    return options as IArrayOptions
+    return options
   }
 }
