@@ -1,4 +1,4 @@
-import { normalizeConfig } from "./fake"
+import { normalizeConfig } from "./base"
 
 describe('Test helpers for all fake data', () => {
   describe('normalizeConfig', () => {

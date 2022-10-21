@@ -1,4 +1,4 @@
-import { LOWER, UPPER, DIGITS, PUNCTUATION, SPCL_CHARS } from './constants/ascii'
+import { LOWER, UPPER, DIGITS, PUNCTUATION, SPCL_CHARS } from './constants'
 
 export interface IFakeDataProvider {
   readonly lower: string[]
@@ -16,10 +16,4 @@ export default class FakeDataProvider implements IFakeDataProvider {
   readonly digits: string[] = DIGITS.split('')
   readonly puntuations: string[] = PUNCTUATION.split('')
   readonly spclChars: string[] = SPCL_CHARS.split('')
-
-  static _instance: IFakeDataProvider = new FakeDataProvider()
-
-  static get (): FakeDataProvider {
-    return FakeDataProvider._instance
-  }
 }

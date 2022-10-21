@@ -1,3 +1,4 @@
+export { boundMethod as bind } from 'autobind-decorator'
 
 export interface Range {
   min: number
@@ -35,7 +36,7 @@ export const clean = <T>(obj: T, deep = true): T => {
   const cleanObject = <U>(part: U): U => {
     for (const key in part) {
       if (part[key] == null) {
-        delete part[key] // eslint-disable-line @typescript-eslint/no-dynamic-delete
+        delete part[key]
       } else if (deep && typeof part[key] === 'object') {
         part[key] = cleanObject(part[key])
       }
