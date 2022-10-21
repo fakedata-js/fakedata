@@ -1,7 +1,7 @@
-jest.mock('../util')
+jest.mock('../core/util')
 
 import BooleanFake from "./boolean";
-import _ from '../util'
+import _ from '../core/util'
 import Proivder from '../core/provider'
 
 

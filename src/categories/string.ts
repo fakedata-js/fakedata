@@ -1,6 +1,6 @@
 import { DIGITS, LOWER, UPPER } from '../core/constants'
 import BasePlugin, { IPluginInterface } from '../core/base'
-import util, { bind } from '../util'
+import util, { bind } from '../core/util'
 
 export interface IStringOptions {
   length?: number

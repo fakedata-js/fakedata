@@ -1,4 +1,4 @@
-import util, { bind } from '../util'
+import util, { bind } from '../core/util'
 import NumberPlugin, { INumberOptions } from './number'
 
 export default class IntegerPlugin extends NumberPlugin {

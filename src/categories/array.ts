@@ -1,5 +1,5 @@
 import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
-import util, { bind } from '../util'
+import util, { bind } from '../core/util'
 
 export interface IArrayOptions<T = any> {
   length: number

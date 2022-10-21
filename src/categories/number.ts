@@ -1,6 +1,6 @@
 import { MAX_NUMBER, MIN_NUMBER } from '../core/constants'
 import BasePlugin, { IPluginInterface } from '../core/base'
-import util, { bind, Range } from '../util'
+import util, { bind, Range } from '../core/util'
 
 export interface INumberOptions {
   min: number

@@ -1,6 +1,6 @@
 import IntegerFake from './integer'
 
-import util from '../util'
+import util from '../core/util'
 import FakeDataProvider from '../core/provider'
 import { MAX_NUMBER, MIN_NUMBER } from '../core/constants'
 
