@@ -10,7 +10,7 @@ export interface IStringOptions {
   upper: boolean
   lower: boolean
   digits: boolean
-  hex?: boolean
+  hex: boolean
 }
 
 export default class StringPlugin extends BasePlugin implements IPluginInterface {

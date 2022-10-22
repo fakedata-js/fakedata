@@ -1,7 +1,7 @@
-import BasePlugin from "../core/base";
+import BasePlugin from '../core/base'
 
 export default class DatePlugin extends BasePlugin {
-  today(): Date {
+  today (): Date {
     return new Date()
   }
 }
