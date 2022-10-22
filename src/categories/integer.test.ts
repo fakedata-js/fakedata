@@ -49,4 +49,20 @@ describe('Tests Interger fake generator', () => {
     expect(value).toBeGreaterThanOrEqual(100)
     expect(value).toBeLessThanOrEqual(200)
   })
+
+  it.each([
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6],
+    [7],
+    [9],
+    [9],
+    [10],
+  ])('Generates a number of %d digits', (digits) => {
+    const value = new IntegerFake(new DataProvider).any({ digits })
+    expect(`${value}`).toHaveLength(digits)
+  })
 })
