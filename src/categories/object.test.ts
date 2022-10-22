@@ -1,17 +1,10 @@
-import IntegerFake from './integer'
-import ObjectFake from './object'
-import StringFake from './string'
-import ArrayFake from './array'
-import DataProvider from '../core/provider'
+import object from './object'
+import string from './string'
+import array from './array'
 
-const provider = new DataProvider
-const int = new IntegerFake(provider)
-const string = new StringFake(provider)
-const array = new ArrayFake(provider)
-const newFaker = () => new ObjectFake(provider)
 describe('ObjectFake', () => {
   it ('Generates an object with existing generators', () => {
-    const obj = newFaker().any({
+    const obj = object.any({
       key1: string.any,
       key2: string.any,
     })
@@ -23,7 +16,7 @@ describe('ObjectFake', () => {
   })
 
   it ('Generates an object with constant values', () => {
-    const obj = newFaker().any({
+    const obj = object.any({
       key1: 12,
       key2: string.any,
       key3: false
@@ -37,8 +30,8 @@ describe('ObjectFake', () => {
   })
 
   it ('Generates an object with nested fake object', () => {
-    const obj = newFaker().any({
-      key: newFaker().with({
+    const obj = object.any({
+      key: object.any.with({
         key1: true,
         key2: string.any
       })
@@ -54,8 +47,8 @@ describe('ObjectFake', () => {
 
   it ('Generates an object with nested fake array', () => {
     const fn = jest.fn(() => 0).mockReturnValueOnce(1).mockReturnValueOnce(2).mockReturnValueOnce(3)
-    const obj = newFaker().any({
-      key1: array.with(3, fn),
+    const obj = object.any({
+      key1: array.any.with(3, fn),
       key2: array.any(3, () => 4)
     })
 
@@ -67,8 +60,8 @@ describe('ObjectFake', () => {
 
   it ('Generates an object with nested fake array', () => {
     const fn = jest.fn(() => 0).mockReturnValueOnce(1).mockReturnValueOnce(2).mockReturnValueOnce(3)
-    const obj = newFaker().any({
-      key1: array.with(3, fn),
+    const obj = object.any({
+      key1: array.any.with(3, fn),
       key2: array.any(3, () => 4)
     })
 
@@ -79,11 +72,11 @@ describe('ObjectFake', () => {
   })
 
   it ('Returns empty object when empty config is provided', () => {
-    expect(newFaker().any()).toStrictEqual({})
+    expect(object.any()).toStrictEqual({})
   })
   it ('Throws an error when config is not an object', () => {
-    expect(() => newFaker().any(123)).toThrowError()
-    expect(() => newFaker().any('123')).toThrowError()
-    expect(() => newFaker().any([])).toThrowError()
+    expect(() => object.any(123)).toThrowError()
+    expect(() => object.any('123')).toThrowError()
+    expect(() => object.any([])).toThrowError()
   })
 })

@@ -1,31 +1,29 @@
-import FromList from './from'
-import DataProvider from '../core/provider'
+import from from './from'
 
-const newFaker = () => new FromList(new DataProvider)
 describe('FromList', () => {
   it('Returns a list from the given list', () => {
-    expect(['Foo', 'bar']).toContain(newFaker().any(['Foo', 'bar']))
+    expect(['Foo', 'bar']).toContain(from.any(['Foo', 'bar']))
   })
 
   it('Throws error when list is empty', () => {
-    expect(() => newFaker().any([])).toThrowError()
+    expect(() => from.any([])).toThrowError()
   })
 
   it('Throws error when list null or undefined', () => {
-    expect(() => newFaker().any(undefined)).toThrowError()
-    expect(() => newFaker().any(null)).toThrowError()
-    expect(() => newFaker().any()).toThrowError()
+    expect(() => from.any(undefined)).toThrowError()
+    expect(() => from.any(null)).toThrowError()
+    expect(() => from.any()).toThrowError()
   })
 
   it('Throws error when list is not an array', () => {
-    expect(() => newFaker().any({})).toThrowError()
-    expect(() => newFaker().any('string')).toThrowError()
-    expect(() => newFaker().any(1234)).toThrowError()
+    expect(() => from.any({})).toThrowError()
+    expect(() => from.any('string')).toThrowError()
+    expect(() => from.any(1234)).toThrowError()
   })
 
 
   it('Generates a random value from a list from aliased generator', () => {
-    const alias = newFaker().with(['Foo', 'bar'])
+    const alias = from.any.with(['Foo', 'bar'])
     expect(['Foo', 'bar']).toContain(alias())
   })
 })

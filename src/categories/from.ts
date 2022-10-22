@@ -1,7 +1,13 @@
 import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
 import util, { bind } from '../core/util'
 
-export default class FromListPlugin extends BasePlugin implements IPluginInterface {
+export class FromListPlugin extends BasePlugin implements IPluginInterface {
+  constructor () {
+    super()
+
+    this.expose('with', this.with)
+  }
+
   @bind
   any<T>(list: T[]): T {
     list = this.opts(list)
@@ -30,3 +36,5 @@ export default class FromListPlugin extends BasePlugin implements IPluginInterfa
     return list
   }
 }
+
+export default new FromListPlugin()
