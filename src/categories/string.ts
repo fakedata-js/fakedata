@@ -10,6 +10,7 @@ export interface IStringOptions {
   upper: boolean
   lower: boolean
   digits: boolean
+  hex: boolean
 }
 
 export default class StringPlugin extends BasePlugin implements IPluginInterface {
@@ -18,7 +19,8 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
     max: 10,
     upper: true,
     lower: true,
-    digits: true
+    digits: true,
+    hex: false
   }
 
   @bind
@@ -69,19 +71,27 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
     }
     charset = ''
 
-    const { upper, lower, digits } = opts
+    const { upper, lower, digits, hex } = opts
 
-    if (!(upper || lower || digits)) {
-      throw new Error('One of upper, lower and digits must be set to true.')
+    if (!(upper || lower || digits || hex)) {
+      throw new Error('One of upper, lower, digits and hex must be set to true.')
     }
-    if (lower) {
-      charset += LOWER
-    }
-    if (upper) {
-      charset += UPPER
-    }
-    if (digits) {
-      charset += DIGITS
+    if (hex) {
+      if (upper) {
+        charset = 'ABCDEF' + DIGITS
+      } else {
+        charset = 'abcdef' + DIGITS
+      }
+    } else {
+      if (lower) {
+        charset += LOWER
+      }
+      if (upper) {
+        charset += UPPER
+      }
+      if (digits) {
+        charset += DIGITS
+      }
     }
 
     return charset

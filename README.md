@@ -9,9 +9,6 @@ A library to generate fake data for testing with focus on customization
 - Boolean
 - Integer
   - Range (default: [-10000000, 10000000])
-  - Hex
-    - uppercase (default false)
-    - Padding (default 0)
 - Floating point number
 - Character
 - String
@@ -23,6 +20,8 @@ A library to generate fake data for testing with focus on customization
     - Digits (default true)
     - Special chars  (default false)
     - Punctuation  (default false)
+  - Hex
+    - uppercase (default false)
 - Array
   - Length (required)
   - Generator (required)

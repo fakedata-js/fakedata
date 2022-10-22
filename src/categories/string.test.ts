@@ -55,6 +55,16 @@ describe('StringFake', () => {
             const faker = newFaker()
             expect(faker.getCharset(faker.opts({ upper, lower, digits }))).toEqual(expected)
         })
+
+        it ('Returns charset for containing A-F and 0-9 when hex is set to true', () => {
+            const faker = newFaker()
+            expect(faker.getCharset(faker.opts({ hex: true }))).not.toMatch(/[^A-F0-9]/)
+        })
+    
+        it ('Returns charset for containing a-f and 0-9 when in lower case hex is set to true and upper is set to false', () => {
+            const faker = newFaker()
+            expect(faker.getCharset(faker.opts({ hex: true, upper: false }))).not.toMatch(/[^a-f0-9]/)
+        })
     
         it('Throws error when upper, lower and digits all are set to false', () => {
             const faker = newFaker()
