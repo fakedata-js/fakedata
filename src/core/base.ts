@@ -1,4 +1,3 @@
-import { IDataProvider } from './provider'
 import util from './util'
 
 export const normalizeConfig = <T>(defaults: T, config?: Partial<T>): T => {
@@ -12,15 +11,20 @@ export interface IPluginInterface {
   with?: Function
 }
 
-export default abstract class BasePlugin {
-  protected readonly provider: IDataProvider
+export default abstract class BasePlugin implements IPluginInterface {
   readonly defaults = {}
 
-  constructor (provider: IDataProvider) {
-    this.provider = provider
-  }
+  abstract any (...args: any[]): any
 
   opts (options: any): any {
     return util.extend({}, this.defaults, util.clean(options))
+  }
+
+  expose (name: string, fn: Function): void {
+    Object.defineProperty(this.any, name, {
+      get (): Function {
+        return fn
+      }
+    })
   }
 }

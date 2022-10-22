@@ -7,10 +7,15 @@ export interface INumberOptions {
   max: number
 }
 
-export default class NumberPlugin extends BasePlugin implements IPluginInterface {
+export class NumberPlugin extends BasePlugin implements IPluginInterface {
   readonly defaults = {
     min: MIN_NUMBER,
     max: MAX_NUMBER
+  }
+
+  constructor () {
+    super()
+    this.expose('with', this.with)
   }
 
   @bind
@@ -28,3 +33,5 @@ export default class NumberPlugin extends BasePlugin implements IPluginInterface
     return util.fixRange(this.defaults, range)
   }
 }
+
+export default new NumberPlugin()

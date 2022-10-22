@@ -1,11 +1,11 @@
 import util, { bind, Range } from '../core/util'
-import NumberPlugin, { INumberOptions } from './number'
+import { INumberOptions, NumberPlugin } from './number'
 
 export interface IntegerOptions extends INumberOptions {
   digits?: number
 }
 
-export default class IntegerPlugin extends NumberPlugin {
+export class IntegerPlugin extends NumberPlugin {
   @bind
   any (options: Partial<IntegerOptions> = {}): number {
     let range
@@ -23,3 +23,5 @@ export default class IntegerPlugin extends NumberPlugin {
     return { min, max }
   }
 }
+
+export default new IntegerPlugin()

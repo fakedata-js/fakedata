@@ -13,7 +13,7 @@ export interface IStringOptions {
   hex: boolean
 }
 
-export default class StringPlugin extends BasePlugin implements IPluginInterface {
+export class StringPlugin extends BasePlugin implements IPluginInterface {
   readonly defaults = {
     min: 2,
     max: 10,
@@ -21,6 +21,13 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
     lower: true,
     digits: true,
     hex: false
+  }
+
+  constructor () {
+    super()
+
+    this.expose('with', this.with)
+    this.expose('t', this.fromTemplate)
   }
 
   @bind
@@ -97,3 +104,5 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
     return charset
   }
 }
+
+export default new StringPlugin()

@@ -15,15 +15,15 @@ describe('Entry point for fake data', () => {
   })
 
   it.each([
-    ['intWith', []],
-    ['numberWith', []],
-    ['stringWith', []],
-    ['arrayWith', [1, () => 1]],
-    ['objectWith', []],
-    ['fromWith', [[1, 2]]],
+    ['int', []],
+    ['number', []],
+    ['string', []],
+    ['array', [1, () => 1]],
+    ['object', []],
+    ['from', [[1, 2]]],
   ])('Has correct interface for %s', (prop, args) => {
-    expect(typeof fake[prop]).toBe('function')
-    const alias = fake[prop].apply(null, args)
+    expect(typeof fake[prop].with).toBe('function')
+    const alias = fake[prop].with.apply(null, args)
     expect(alias).not.toThrowError()
   })
 

@@ -1,12 +1,12 @@
 import DataProvider, { IDataProvider } from './core/provider'
-import BooleanFake from './categories/boolean'
+import bool from './categories/boolean'
 import { GeneratorFn } from './core/base'
-import ArrayFake from './categories/array'
-import IntegerFake from './categories/integer'
-import NumberFake from './categories/number'
-import ObjectFake, { Shape } from './categories/object'
-import StringFake from './categories/string'
-import FromList from './categories/from'
+import array from './categories/array'
+import int from './categories/integer'
+import num from './categories/number'
+import object, { Shape } from './categories/object'
+import string from './categories/string'
+import from from './categories/from'
 
 export class FakeData {
   private readonly provider: DataProvider
@@ -31,19 +31,13 @@ export class FakeData {
   }
 
   initFakers (): void {
-    this.bool = new BooleanFake(this.provider).any
-    this.int = new IntegerFake(this.provider).any
-    this.intWith = new IntegerFake(this.provider).with
-    this.number = new NumberFake(this.provider).any
-    this.numberWith = new NumberFake(this.provider).with
-    this.string = new StringFake(this.provider).any
-    this.stringWith = new StringFake(this.provider).with
-    this.array = new ArrayFake(this.provider).any
-    this.arrayWith = new ArrayFake(this.provider).with
-    this.object = new ObjectFake(this.provider).any
-    this.objectWith = new ObjectFake(this.provider).with
-    this.from = new FromList(this.provider).any
-    this.fromWith = new FromList(this.provider).with
+    this.bool = bool.any
+    this.int = int.any
+    this.number = num.any
+    this.string = string.any
+    this.array = array.any
+    this.object = object.any
+    this.from = from.any
   }
 }
 

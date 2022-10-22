@@ -9,7 +9,13 @@ export interface Shape {
   [key: string]: any
 }
 
-export default class ObjectPlugin extends BasePlugin implements IPluginInterface {
+export class ObjectPlugin extends BasePlugin implements IPluginInterface {
+  constructor () {
+    super()
+
+    this.expose('with', this.with)
+  }
+
   @bind
   any (options: Partial<IObjectOptions> = {}): Shape {
     const opts = this.opts(options)
@@ -40,3 +46,5 @@ export default class ObjectPlugin extends BasePlugin implements IPluginInterface
     return options
   }
 }
+
+export default new ObjectPlugin()

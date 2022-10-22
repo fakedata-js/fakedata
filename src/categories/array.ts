@@ -6,7 +6,13 @@ export interface IArrayOptions<T = any> {
   fn: GeneratorFn<T>
 }
 
-export default class ArrayPlugin extends BasePlugin implements IPluginInterface {
+export class ArrayPlugin extends BasePlugin implements IPluginInterface {
+  constructor () {
+    super()
+
+    this.expose('with', this.with)
+  }
+
   @bind
   any<T>(length: number, fn: GeneratorFn<T>): T[] {
     const opts = this.opts({ length, fn })
@@ -30,3 +36,5 @@ export default class ArrayPlugin extends BasePlugin implements IPluginInterface 
     return options
   }
 }
+
+export default new ArrayPlugin()
