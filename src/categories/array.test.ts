@@ -56,4 +56,14 @@ describe('ArrayFake', () => {
     expect(() => array.any(3, undefined)).toThrowError()
     expect(() => array.any(3, null)).toThrowError()
   })
+
+  it ('Generate multiple array with same length but different generators', () => {
+    const length5Array = array.any.with({ length: 3 })
+
+    const intArray = length5Array({ fn: () => 1 })
+    const stringArray = length5Array({ fn: () => 'abc' })
+
+    expect(intArray).toStrictEqual([1, 1, 1])
+    expect(stringArray).toStrictEqual(['abc', 'abc', 'abc'])
+  })
 })

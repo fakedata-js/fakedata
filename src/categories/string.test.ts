@@ -15,13 +15,18 @@ describe('StringFake', () => {
         expect(value).toHaveLength(20)
     })
 
-    it ('Throws error when string lenght is negative', () => {
+    it ('Throws error when string length is negative', () => {
         expect(() => faker.any({ length: -10 })).toThrowError()
     })
 
     it ('Generates a string from aliased generator', () => {
         const alias = faker.any.with({ length: 20 })
         expect(alias()).toHaveLength(20)
+    })
+
+    it ('Override option in aliased generator', () => {
+        const alias = faker.any.with({ length: 20 })
+        expect(alias({ length: 10 })).toHaveLength(10)
     })
 
     describe('getCharset', () => {

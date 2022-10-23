@@ -41,8 +41,8 @@ export class StringPlugin extends BasePlugin implements IPluginInterface {
   }
 
   @bind
-  with (options: Partial<IStringOptions> = {}): GeneratorFn<string> {
-    return () => this.any(options)
+  with (options: Partial<IStringOptions>): GeneratorFn<string> {
+    return (overrides: Partial<IStringOptions> = {}) => this.any(util.extend({}, options, overrides))
   }
 
   @bind

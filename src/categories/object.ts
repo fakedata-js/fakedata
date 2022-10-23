@@ -40,8 +40,8 @@ export class ObjectPlugin extends BasePlugin implements IPluginInterface {
   }
 
   @bind
-  with (config: IObjectOptions): GeneratorFn<Shape> {
-    return () => this.any(config)
+  with (options: IObjectOptions): GeneratorFn<Shape> {
+    return (overrides: IObjectOptions = {}) => this.any(util.extend({}, options, overrides))
   }
 
   opts (options: IObjectOptions): IObjectOptions {
