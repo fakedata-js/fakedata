@@ -1,3 +1,9 @@
+### String
+- characters - generate single characters
+- casing
+  - sentence - first letter in upper case rest lower
+  - upper
+  - lower
 ### Date
 - Date
 - Day
