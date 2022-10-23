@@ -62,3 +62,6 @@
 ## Customization
 - Character set
 - Locale
+## Choice
+  - from
+    - // register a set of values so we can get it with a key. `fake.set('fruits', ['apple', 'banana', 'kiwi'])`. Then this can be used as `fake.from('fruits')`
