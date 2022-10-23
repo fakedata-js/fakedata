@@ -19,19 +19,24 @@ export class ObjectPlugin extends BasePlugin implements IPluginInterface {
   @bind
   any (options: Partial<IObjectOptions> = {}): Shape {
     const opts = this.opts(options)
-
-    const obj: any = {}
-    for (const key in opts) {
-      let value; const generator = opts[key]
-      if (util.isFunction(generator)) {
-        value = generator()
-      } else {
-        value = generator
+    const _process = (partial: Partial<IObjectOptions>): Shape => {
+      const obj: any = {}
+      for (const key in partial) {
+        let value; const generator = partial[key]
+        if (util.isFunction(generator)) {
+          value = generator()
+        } else if (util.isObject(generator)) {
+          value = _process(generator)
+        } else {
+          value = generator
+        }
+        obj[key] = value
       }
-      obj[key] = value
+
+      return obj
     }
 
-    return obj
+    return _process(opts)
   }
 
   @bind

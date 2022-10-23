@@ -29,12 +29,28 @@ describe('ObjectFake', () => {
     })
   })
 
-  it ('Generates an object with nested fake object', () => {
+  it ('Generates an object with nested fake object with alias', () => {
     const obj = object.any({
       key: object.any.with({
         key1: true,
         key2: string.any
       })
+    })
+
+    expect(obj).toMatchObject({
+      key: {
+        key1: true,
+        key2: expect.stringMatching(/[a-zA-Z0-9]+/),
+      }
+    })
+  })
+
+  it ('Generates an object with nested fake object without alias', () => {
+    const obj = object.any({
+      key: {
+        key1: true,
+        key2: string.any
+      }
     })
 
     expect(obj).toMatchObject({

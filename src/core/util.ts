@@ -51,11 +51,19 @@ export const isFunction = <T>(fn: T): boolean => {
   return (typeof fn === 'function')
 }
 
+export const isObject = <T>(obj: T): boolean => {
+  if (obj === null || typeof obj !== 'object') {
+    return false
+  }
+  return Object.prototype === Object.getPrototypeOf(obj)
+}
+
 export default {
   extend,
   random,
   randomDouble,
   fixRange,
   clean,
-  isFunction
+  isFunction,
+  isObject
 }
