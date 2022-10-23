@@ -16,6 +16,8 @@ export class NumberPlugin extends BasePlugin implements IPluginInterface {
   constructor () {
     super()
     this.expose('with', this.with)
+    this.expose('positive', this.with({ min: 0 }))
+    this.expose('negative', this.with({ max: -1 }))
   }
 
   @bind
