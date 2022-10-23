@@ -31,7 +31,7 @@ describe('StringFake', () => {
         })
     
         it ('Returns default charset when charset, upper, lower and digits options are not set', () => {
-            const expected = LOWER + UPPER + DIGITS
+            const expected = LOWER + UPPER
             expect(faker.getCharset(faker.opts({ }))).toEqual(expected)
         })
     
@@ -68,17 +68,17 @@ describe('StringFake', () => {
 
         it('Generates string with one string placeholder', () => {
             const alias = faker.any.t`Hello ${faker.any}`
-            expect(alias()).toMatch(/Hello [a-zA-Z0-9]+/)
+            expect(alias()).toMatch(/Hello [a-zA-Z]+/)
         })
 
         it('Generates string with multiple placeholders', () => {
             const alias = faker.any.t`My name is ${faker.any} and I live in ${faker.any}`
-            expect(alias()).toMatch(/My name is [a-zA-Z0-9]+ and I live in [a-zA-Z0-9]+/)
+            expect(alias()).toMatch(/My name is [a-zA-Z]+ and I live in [a-zA-Z]+/)
         })
 
         it('Generates string with multiple placeholders starting from a placeholder', () => {
             const alias = faker.any.t`${faker.any}: Do something amazing, like ${faker.any}`
-            expect(alias()).toMatch(/[a-zA-Z0-9]+: Do something amazing, like [a-zA-Z0-9]+/)
+            expect(alias()).toMatch(/[a-zA-Z]+: Do something amazing, like [a-zA-Z]+/)
         })
         
         it('If placeholder contains a constant then values is used as is', () => {

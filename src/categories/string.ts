@@ -19,7 +19,7 @@ export class StringPlugin extends BasePlugin implements IPluginInterface {
     max: 10,
     upper: true,
     lower: true,
-    digits: true,
+    digits: false,
     hex: false
   }
 
