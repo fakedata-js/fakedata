@@ -16,7 +16,7 @@ export class FakeData {
   string!: GeneratorFn<string>
   array!: <T>(size: number, fn: GeneratorFn<T>) => T[]
   object!: <T>(opts: Partial<T>) => Shape
-  select!: <T>(list: T[]) => T
+  select!: <T>(list: T[]) => T | T[]
 
   constructor (provider: IDataProvider) {
     this.provider = provider
