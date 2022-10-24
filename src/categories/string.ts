@@ -19,7 +19,7 @@ export class StringPlugin extends BasePlugin implements IPluginInterface {
     max: 10,
     upper: true,
     lower: true,
-    digits: true,
+    digits: false,
     hex: false
   }
 
@@ -41,8 +41,8 @@ export class StringPlugin extends BasePlugin implements IPluginInterface {
   }
 
   @bind
-  with (options: Partial<IStringOptions> = {}): GeneratorFn<string> {
-    return () => this.any(options)
+  with (options: Partial<IStringOptions>): GeneratorFn<string> {
+    return (overrides: Partial<IStringOptions> = {}) => this.any(util.extend({}, options, overrides))
   }
 
   @bind

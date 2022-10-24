@@ -47,4 +47,19 @@ describe('NumberFake', () => {
         expect(value).toBeGreaterThanOrEqual(20)
         expect(value).toBeLessThanOrEqual(25)
       })
+
+      it ('Generate positive numbers from alias', () => {
+        expect(num.any.positive()).toBeGreaterThanOrEqual(0)
+      })
+
+      it ('Generate negative numbers from alias', () => {
+        expect(num.any.negative()).toBeLessThan(0)
+      })
+
+      it ('Override options in aliased generator', () => {
+        const alias = num.any.with({ min: 0, max: 25 })
+        const value = alias({ min: 30, max: 40 })
+        expect(value).toBeGreaterThanOrEqual(30)
+        expect(value).toBeLessThanOrEqual(40)
+      })
 })

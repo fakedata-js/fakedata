@@ -16,7 +16,13 @@ module.exports = {
     extensions: ['.ts', '.js'],
   },
   output: {
-    filename: 'lib.js',
+    filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
+    library: {
+      name: 'fake',
+      type: 'umd',
+      export: 'default',
+    },
+    globalObject: 'this',
   },
 };

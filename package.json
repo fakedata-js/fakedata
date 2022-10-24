@@ -2,7 +2,7 @@
   "name": "@fakejs/fake",
   "version": "0.0.1",
   "description": "A library to generate fake data for testing",
-  "main": "dist/lib.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "webpack --config=webpack.config.js --mode=development",
     "watch": "webpack --config=webpack.config.js --mode=development --watch",

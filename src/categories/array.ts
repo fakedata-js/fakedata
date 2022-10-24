@@ -21,8 +21,11 @@ export class ArrayPlugin extends BasePlugin implements IPluginInterface {
   }
 
   @bind
-  with<T>(length: number, fn: GeneratorFn<T>): () => T[] {
-    return () => this.any(length, fn)
+  with<T>(options: Partial<IArrayOptions<T>>): (overrides: Partial<IArrayOptions<T>>) => T[] {
+    return (overrides: Partial<IArrayOptions<T>>) => {
+      const opts = util.extend({}, options, overrides)
+      return this.any(opts.length, opts.fn)
+    }
   }
 
   opts (options: IArrayOptions): IArrayOptions {

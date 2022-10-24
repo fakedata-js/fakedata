@@ -1,0 +1,55 @@
+import BasePlugin, { IPluginInterface } from '../core/base'
+import util, { bind } from '../core/util'
+
+export interface ISelectOptions<T> {
+  list: T[]
+  length: number
+}
+
+export class SelectPlugin extends BasePlugin implements IPluginInterface {
+  constructor () {
+    super()
+
+    this.expose('with', this.with)
+  }
+
+  @bind
+  any<T>(list: T[], length: number = 1): T | T[] {
+    const opts = this.opts({ list, length })
+    const min = 0; const max = opts.list.length
+    const index = util.random(min, max)
+
+    const getOne = (): T => {
+      return opts.list[index]
+    }
+    if (opts.length === 1) {
+      return getOne()
+    } else {
+      return Array(opts.length).fill(undefined).map(getOne)
+    }
+  }
+
+  @bind
+  with<T>(list: T[], length: number = 1): ((length?: number) => T | T[]) {
+    return (overrides?: number) => this.any(list, overrides ?? length)
+  }
+
+  opts<T>(opts: ISelectOptions<T>): ISelectOptions<T> {
+    if (opts.list == null) {
+      throw new Error('List must not be null or undefined')
+    }
+    if (!Array.isArray(opts.list)) {
+      throw new Error(`List must not be an array, found ${typeof opts.list}`)
+    }
+    if (opts.list.length === 0) {
+      throw new Error('List must not be empty')
+    }
+    if (opts.length < 0) {
+      throw new Error('length cannot be negative')
+    }
+
+    return opts
+  }
+}
+
+export default new SelectPlugin()

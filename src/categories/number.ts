@@ -16,6 +16,8 @@ export class NumberPlugin extends BasePlugin implements IPluginInterface {
   constructor () {
     super()
     this.expose('with', this.with)
+    this.expose('positive', this.with({ min: 0 }))
+    this.expose('negative', this.with({ max: -1 }))
   }
 
   @bind
@@ -25,8 +27,8 @@ export class NumberPlugin extends BasePlugin implements IPluginInterface {
   }
 
   @bind
-  with (options: Partial<INumberOptions> = {}): GeneratorFn<number> {
-    return () => this.any(options)
+  with (options: Partial<INumberOptions>): GeneratorFn<number> {
+    return (overrides: Partial<INumberOptions> = {}) => this.any(util.extend({}, options, overrides))
   }
 
   fixRange (range: Partial<Range>): Range {

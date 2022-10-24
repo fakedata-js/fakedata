@@ -24,11 +24,12 @@ fake.bool()
   - [fake.number](#fakenumber)
 - [String](#string)
   - [fake.string](#fakestring)
+  - [fake.string.t](#fakestringt)
 - [Array and Objects](#array-and-objects)
   - [fake.array](#fakearray)
   - [fake.object](#fakeobject)
 - [Choice](#choice)
-  - [fake.from](#fakefrom)
+  - [fake.select](#fakeselect)
 - [Alias](#alias)
 
 ## WIP
@@ -90,10 +91,18 @@ Name|Type|Default|Description
 `length`|`number`||Exact length of string. This takes precidence over `min` and `max` values
 `upper`|`boolean`|`true`|Include uppercase letters(A-Z) in string
 `lower`|`boolean`|`true`|Include lowercase letters(a-z) in string
-`digits`|`boolean`|`true`|Include digits(0-9) in string
+`digits`|`boolean`|`false`|Include digits(0-9) in string
 `charset`|`string`||Provide custom characters to be used to generate the string. If this is provided then `upper`, `lower`, and `digits` options are ignored.
 `hex`|`boolean`|`false`|Generate a hexadecimal string. This option can be combined with `upper` option to generate hexadecimal string with upper case and lower case letters. If this option is set to `true` then `lower`, `digits` and `charset` options are ignored
 
+#### fake.string.t
+Generate a custom formatted string using literal string syntax
+```js
+fake.string.t`I have ${fake.int.with({ digits: 1 })} eggs.`
+
+// Returns a string which looks like
+'I have 4 eggs.'
+```
 ### Array and Objects
 ### fake.array
 Generates an array from given generator function
@@ -111,7 +120,7 @@ Generates an object from of defined shape
 ```js
 // Generate a object
 const person = fake.object({
-  name: fake.string({ length: 5, digits: false, upper: false }),
+  name: fake.string({ length: 5, upper: false }),
   age: fake.int({ min: 18, max: 65 }),
 })
 // Generates an object which looks like
@@ -123,10 +132,10 @@ const person = fake.object({
 ##### Nested objects
 ```js
 const person = fake.object({
-  name: fake.string({ length: 5, digits: false, upper: false }),
+  name: fake.string({ length: 5, upper: false }),
   age: fake.int({ min: 18, max: 65 }),
   address: {
-    city: fake.string({ length: 5, digits: false, upper: false }),
+    city: fake.string({ length: 5, upper: false }),
     pincode: fake.int({ digits: 6 })
   }
 })
@@ -142,12 +151,12 @@ const person = fake.object({
 }
 ```
 ### Choice
-### fake.from
+### fake.select
 This api can be used to generate a random value from a fixed set of values. 
 ```js
-fake.from(['Yes', 'No']) // returns either 'Yes' or 'No'
+fake.select(['Yes', 'No']) // returns either 'Yes' or 'No'
 
-fake.from(['Apple', 'Banana', 'Kiwi']) // retturns one of 'Apple', 'Banana' or 'Kiwi'
+fake.select(['Apple', 'Banana', 'Kiwi']) // retturns one of 'Apple', 'Banana' or 'Kiwi'
 ```
 
 ### Alias
@@ -156,10 +165,10 @@ Alias functions can be used to create an alias for any fake value generators. Th
 For example you can use it to generate multiple fake objects with same configuration then you can simply create an alias for with `fake.object.with` api
 ```js
 const personFn = fake.object.with({
-  name: fake.string({ length: 5, digits: false, upper: false }),
+  name: fake.string({ length: 5, upper: false }),
   age: fake.int({ min: 18, max: 65 }),
   address: {
-    city: fake.string({ length: 5, digits: false, upper: false }),
+    city: fake.string({ length: 5, upper: false }),
     pincode: fake.int({ digits: 6 })
   }
 })
