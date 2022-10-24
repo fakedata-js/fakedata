@@ -29,7 +29,7 @@ fake.bool()
   - [fake.array](#fakearray)
   - [fake.object](#fakeobject)
 - [Choice](#choice)
-  - [fake.from](#fakefrom)
+  - [fake.select](#fakeselect)
 - [Alias](#alias)
 
 ## WIP
@@ -151,12 +151,12 @@ const person = fake.object({
 }
 ```
 ### Choice
-### fake.from
+### fake.select
 This api can be used to generate a random value from a fixed set of values. 
 ```js
-fake.from(['Yes', 'No']) // returns either 'Yes' or 'No'
+fake.select(['Yes', 'No']) // returns either 'Yes' or 'No'
 
-fake.from(['Apple', 'Banana', 'Kiwi']) // retturns one of 'Apple', 'Banana' or 'Kiwi'
+fake.select(['Apple', 'Banana', 'Kiwi']) // retturns one of 'Apple', 'Banana' or 'Kiwi'
 ```
 
 ### Alias

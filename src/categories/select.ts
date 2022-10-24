@@ -1,7 +1,7 @@
 import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
 import util, { bind } from '../core/util'
 
-export class FromListPlugin extends BasePlugin implements IPluginInterface {
+export class SelectPlugin extends BasePlugin implements IPluginInterface {
   constructor () {
     super()
 
@@ -37,4 +37,4 @@ export class FromListPlugin extends BasePlugin implements IPluginInterface {
   }
 }
 
-export default new FromListPlugin()
+export default new SelectPlugin()

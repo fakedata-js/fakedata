@@ -1,4 +1,4 @@
-import from from './from'
+import from from './select'
 
 describe('FromList', () => {
   it('Returns a list from the given list', () => {

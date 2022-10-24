@@ -8,7 +8,7 @@ describe('Entry point for fake data', () => {
     ['string', []],
     ['array', [1, () => 1]],
     ['object', []],
-    ['from', [[1, 2]]],
+    ['select', [[1, 2]]],
   ])('Has correct interface for %s', (prop, args) => {
     expect(typeof fake[prop]).toBe('function')
     expect(() => fake[prop].apply(null, args)).not.toThrowError()
@@ -20,7 +20,7 @@ describe('Entry point for fake data', () => {
     ['string', []],
     ['array', [{ length: 1, fn: () => 1 }]],
     ['object', []],
-    ['from', [[1, 2]]],
+    ['select', [[1, 2]]],
   ])('Has correct interface for %s.with', (prop, args) => {
     expect(typeof fake[prop].with).toBe('function')
     const alias = fake[prop].with.apply(null, args)
