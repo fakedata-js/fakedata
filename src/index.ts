@@ -12,17 +12,11 @@ export class FakeData {
   private readonly provider: DataProvider
   bool!: GeneratorFn<boolean>
   int!: GeneratorFn<number>
-  intWith!: GeneratorFn<() => number>
   number!: GeneratorFn<number>
-  numberWith!: GeneratorFn<() => number>
   string!: GeneratorFn<string>
-  stringWith!: GeneratorFn<() => string>
   array!: <T>(size: number, fn: GeneratorFn<T>) => T[]
-  arrayWith!: <T>(size: number, fn: GeneratorFn<T>) => (() => T[])
   object!: <T>(opts: Partial<T>) => Shape
-  objectWith!: <T>(opts: Partial<T>) => GeneratorFn<Shape>
   from!: <T>(list: T[]) => T
-  fromWith!: <T>(list: T[]) => (() => T)
 
   constructor (provider: IDataProvider) {
     this.provider = provider
