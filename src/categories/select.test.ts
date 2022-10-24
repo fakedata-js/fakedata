@@ -26,4 +26,23 @@ describe('FromList', () => {
     const alias = from.any.with(['Foo', 'bar'])
     expect(['Foo', 'bar']).toContain(alias())
   })
+
+  describe('many', () => {
+    it.each([
+      ['less than the values list', 2],
+      ['equal to values list', 4],
+      ['more than the values list', 6],
+    ])('Generates a multiple random values from a list when generated length is %s', (label, length) => {
+      const fruites = ['Apple', 'Banana', 'Kiwi', 'Grapes']
+      const list = from.any.many(fruites, length)
+      expect(list).toHaveLength(length)
+      list.forEach(fruite => {
+        expect(fruites).toContainEqual(fruite)
+      });
+    })
+
+    it('Throws error when length is < 0', () => {
+      expect(() => from.any.many(['Apple', 'Banana', 'Kiwi', 'Grapes'], -1)).toThrowError()
+    })
+  })
 })

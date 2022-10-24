@@ -6,6 +6,7 @@ export class SelectPlugin extends BasePlugin implements IPluginInterface {
     super()
 
     this.expose('with', this.with)
+    this.expose('many', this.many)
   }
 
   @bind
@@ -15,6 +16,11 @@ export class SelectPlugin extends BasePlugin implements IPluginInterface {
     const index = util.random(min, max)
 
     return list[index]
+  }
+
+  @bind
+  many<T>(list: T[], length: number): T[] {
+    return Array(length).fill(undefined).map(() => this.any(list))
   }
 
   @bind
