@@ -1,6 +1,7 @@
 import { DIGITS, LOWER, UPPER } from '../core/constants'
 import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
 import util, { bind } from '../core/util'
+import { IDataProvider } from '../core/provider'
 
 export interface IStringOptions {
   length?: number
@@ -13,7 +14,7 @@ export interface IStringOptions {
   hex: boolean
 }
 
-export class StringPlugin extends BasePlugin implements IPluginInterface {
+export default class StringPlugin extends BasePlugin implements IPluginInterface {
   readonly defaults = {
     min: 2,
     max: 10,
@@ -23,8 +24,8 @@ export class StringPlugin extends BasePlugin implements IPluginInterface {
     hex: false
   }
 
-  constructor () {
-    super()
+  constructor (provider: IDataProvider) {
+    super(provider)
 
     this.expose('with', this.with)
     this.expose('t', this.fromTemplate)
@@ -33,10 +34,10 @@ export class StringPlugin extends BasePlugin implements IPluginInterface {
   @bind
   any (options: Partial<IStringOptions> = {}): string {
     const opts = this.opts(options)
-    const length = opts.length ?? util.random(opts.min, opts.max)
+    const length = opts.length ?? this.provider.randomInt(opts.min, opts.max)
     const charset = this.getCharset(opts)
 
-    const arr = Array(length).fill(undefined).map(() => charset.charAt(util.random(0, charset.length - 1)))
+    const arr = Array(length).fill(undefined).map(() => charset.charAt(this.provider.randomInt(0, charset.length - 1)))
     return arr.join('')
   }
 
@@ -104,5 +105,3 @@ export class StringPlugin extends BasePlugin implements IPluginInterface {
     return charset
   }
 }
-
-export default new StringPlugin()

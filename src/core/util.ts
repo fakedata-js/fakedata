@@ -13,14 +13,6 @@ export const extend = <T extends {}, U>(source: T, target: U, ...rest: any[]): a
   return extended
 }
 
-export const random = (min: number, max: number): number => {
-  return Math.floor((Math.random() * (max - min)) + min)
-}
-
-export const randomDouble = (min: number, max: number): number => {
-  return (Math.random() * (max - min)) + min
-}
-
 export const fixRange = (defaults: Range, opts?: Partial<Range>): Range => {
   const min = opts?.min ?? defaults.min
   const max = opts?.max ?? defaults.max
@@ -60,8 +52,6 @@ export const isObject = <T>(obj: T): boolean => {
 
 export default {
   extend,
-  random,
-  randomDouble,
   fixRange,
   clean,
   isFunction,

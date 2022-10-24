@@ -1,14 +1,15 @@
 import BasePlugin, { IPluginInterface } from '../core/base'
-import util, { bind } from '../core/util'
+import { IDataProvider } from '../core/provider'
+import { bind } from '../core/util'
 
 export interface ISelectOptions<T> {
   list: T[]
   length: number
 }
 
-export class SelectPlugin extends BasePlugin implements IPluginInterface {
-  constructor () {
-    super()
+export default class SelectPlugin extends BasePlugin implements IPluginInterface {
+  constructor (provider: IDataProvider) {
+    super(provider)
 
     this.expose('with', this.with)
   }
@@ -17,7 +18,7 @@ export class SelectPlugin extends BasePlugin implements IPluginInterface {
   any<T>(list: T[], length: number = 1): T | T[] {
     const opts = this.opts({ list, length })
     const min = 0; const max = opts.list.length
-    const index = util.random(min, max)
+    const index = this.provider.randomInt(min, max)
 
     const getOne = (): T => {
       return opts.list[index]
@@ -51,5 +52,3 @@ export class SelectPlugin extends BasePlugin implements IPluginInterface {
     return opts
   }
 }
-
-export default new SelectPlugin()

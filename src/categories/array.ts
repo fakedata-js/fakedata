@@ -1,4 +1,5 @@
 import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
+import { IDataProvider } from '../core/provider'
 import util, { bind } from '../core/util'
 
 export interface IArrayOptions<T = any> {
@@ -6,9 +7,9 @@ export interface IArrayOptions<T = any> {
   fn: GeneratorFn<T>
 }
 
-export class ArrayPlugin extends BasePlugin implements IPluginInterface {
-  constructor () {
-    super()
+export default class ArrayPlugin extends BasePlugin implements IPluginInterface {
+  constructor (provider: IDataProvider) {
+    super(provider)
 
     this.expose('with', this.with)
   }
@@ -39,5 +40,3 @@ export class ArrayPlugin extends BasePlugin implements IPluginInterface {
     return options
   }
 }
-
-export default new ArrayPlugin()

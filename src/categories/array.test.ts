@@ -1,5 +1,9 @@
-import array from "./array";
-import int from "./integer";
+import { createPlugin } from "../../test/util";
+import Plugin from "./array";
+import IntPlugin from "./integer";
+
+const array: Plugin = createPlugin(Plugin)
+const int: IntPlugin = createPlugin(IntPlugin)
 
 describe('ArrayFake', () => {
   it ('Generates an array of existing fake types of given length', () => {

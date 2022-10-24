@@ -1,5 +1,8 @@
+import { createPlugin } from '../../test/util'
 import { MAX_NUMBER, MIN_NUMBER } from '../core/constants'
-import num from './number'
+import Plugin from './number'
+
+const num: Plugin = createPlugin(Plugin)
 
 describe('NumberFake', () => {
     it ('Generates a random number between a range', () => {

@@ -1,19 +1,25 @@
-import { LOWER, UPPER, DIGITS, PUNCTUATION, SPCL_CHARS } from './constants'
+export type RandomGenerator = () => number
 
 export interface IDataProvider {
-  readonly lower: string[]
-  readonly upper: string[]
-  readonly digits: string[]
-  readonly puntuations: string[]
-  readonly spclChars: string[]
-  readonly boolean: boolean[]
+  random: (min: number, max: number) => number
+  randomInt: (min: number, max: number) => number
 }
 
 export default class DataProvider implements IDataProvider {
-  readonly boolean: boolean[] = [true, false]
-  readonly lower: string[] = LOWER.split('')
-  readonly upper: string[] = UPPER.split('')
-  readonly digits: string[] = DIGITS.split('')
-  readonly puntuations: string[] = PUNCTUATION.split('')
-  readonly spclChars: string[] = SPCL_CHARS.split('')
+  private readonly randomFn: RandomGenerator
+  constructor (randomizer: RandomGenerator) {
+    this.randomFn = randomizer
+  }
+
+  random (min: number, max: number): number {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return (this.randomFn() * (max - min)) + min
+  }
+
+  randomInt (min: number, max: number): number {
+    min = Math.ceil(min)
+    max = Math.floor(max)
+    return Math.floor((this.randomFn() * (max - min)) + min)
+  }
 }

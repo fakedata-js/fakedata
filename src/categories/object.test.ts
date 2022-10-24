@@ -1,6 +1,11 @@
-import object from './object'
-import string from './string'
-import array from './array'
+import Plugin from './object'
+import StringPlugin from './string'
+import ArrayPlugin from './array'
+import { createPlugin } from '../../test/util'
+
+const object: Plugin = createPlugin(Plugin)
+const string: StringPlugin = createPlugin(StringPlugin)
+const array: ArrayPlugin = createPlugin(ArrayPlugin)
 
 const stringRegex = /[a-zA-Z0-9]+/
 describe('ObjectFake', () => {

@@ -1,4 +1,5 @@
 import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
+import { IDataProvider } from '../core/provider'
 import util, { bind } from '../core/util'
 
 export interface IObjectOptions {
@@ -9,9 +10,9 @@ export interface Shape {
   [key: string]: any
 }
 
-export class ObjectPlugin extends BasePlugin implements IPluginInterface {
-  constructor () {
-    super()
+export default class ObjectPlugin extends BasePlugin implements IPluginInterface {
+  constructor (provider: IDataProvider) {
+    super(provider)
 
     this.expose('with', this.with)
   }
@@ -51,5 +52,3 @@ export class ObjectPlugin extends BasePlugin implements IPluginInterface {
     return options
   }
 }
-
-export default new ObjectPlugin()

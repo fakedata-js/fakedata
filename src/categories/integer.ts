@@ -1,11 +1,11 @@
-import util, { bind, Range } from '../core/util'
-import { INumberOptions, NumberPlugin } from './number'
+import { bind, Range } from '../core/util'
+import NumberPlugin, { INumberOptions } from './number'
 
 export interface IntegerOptions extends INumberOptions {
   digits?: number
 }
 
-export class IntegerPlugin extends NumberPlugin {
+export default class IntegerPlugin extends NumberPlugin {
   @bind
   any (options: Partial<IntegerOptions> = {}): number {
     let range
@@ -14,7 +14,7 @@ export class IntegerPlugin extends NumberPlugin {
     } else {
       range = this.fixRange(options)
     }
-    return util.random(range.min, range.max)
+    return this.provider.randomInt(range.min, range.max)
   }
 
   getRangeFromDigits (digits: number): Range {
@@ -23,5 +23,3 @@ export class IntegerPlugin extends NumberPlugin {
     return { min, max }
   }
 }
-
-export default new IntegerPlugin()

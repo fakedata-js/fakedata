@@ -1,6 +1,8 @@
+import { createPlugin } from "../../test/util";
 import { DIGITS, LOWER, UPPER } from "../core/constants";
-import faker from "./string";
+import Plugin from "./string";
 
+const faker: Plugin = createPlugin(Plugin)
 describe('StringFake', () => {
     it ('Generates a string of length betwwen default range', () => {
         const value = faker.any()

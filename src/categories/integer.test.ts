@@ -1,5 +1,8 @@
-import int from './integer'
+import Plugin from './integer'
 import { MAX_NUMBER, MIN_NUMBER } from '../core/constants'
+import { createPlugin } from '../../test/util'
+
+const int: Plugin = createPlugin(Plugin)
 
 describe('Tests Interger fake generator', () => {
   beforeEach(() => {

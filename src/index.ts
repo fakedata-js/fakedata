@@ -1,15 +1,15 @@
 import DataProvider, { IDataProvider } from './core/provider'
-import bool from './categories/boolean'
 import { GeneratorFn } from './core/base'
-import array from './categories/array'
-import int from './categories/integer'
-import num from './categories/number'
-import object, { Shape } from './categories/object'
-import string from './categories/string'
-import select from './categories/select'
+import BooleanPlugin from './categories/boolean'
+import ArrayPlugin from './categories/array'
+import IntegerPlugin from './categories/integer'
+import NumberPlugin from './categories/number'
+import ObjectPlugin, { Shape } from './categories/object'
+import StringPlugin from './categories/string'
+import SelectPlugin from './categories/select'
 
 export class FakeData {
-  private readonly provider: DataProvider
+  private readonly provider: IDataProvider
   bool!: GeneratorFn<boolean>
   int!: GeneratorFn<number>
   number!: GeneratorFn<number>
@@ -25,14 +25,14 @@ export class FakeData {
   }
 
   initFakers (): void {
-    this.bool = bool.any
-    this.int = int.any
-    this.number = num.any
-    this.string = string.any
-    this.array = array.any
-    this.object = object.any
-    this.select = select.any
+    this.bool = new BooleanPlugin(this.provider).any
+    this.int = new IntegerPlugin(this.provider).any
+    this.number = new NumberPlugin(this.provider).any
+    this.string = new StringPlugin(this.provider).any
+    this.array = new ArrayPlugin(this.provider).any
+    this.object = new ObjectPlugin(this.provider).any
+    this.select = new SelectPlugin(this.provider).any
   }
 }
 
-export default new FakeData(new DataProvider())
+export default new FakeData(new DataProvider(Math.random))
