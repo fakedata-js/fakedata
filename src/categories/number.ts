@@ -1,5 +1,5 @@
 import { MAX_NUMBER, MIN_NUMBER } from '../core/constants'
-import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
+import BasePlugin, { IPluginInterface } from '../core/base'
 import util, { bind, Range } from '../core/util'
 import { IDataProvider } from '../core/provider'
 
@@ -8,6 +8,7 @@ export interface INumberOptions {
   max: number
 }
 
+export type NumberGenratorFn = (options?: Partial<INumberOptions>) => number
 export default class NumberPlugin extends BasePlugin implements IPluginInterface {
   readonly defaults = {
     min: MIN_NUMBER,
@@ -28,11 +29,18 @@ export default class NumberPlugin extends BasePlugin implements IPluginInterface
   }
 
   @bind
-  with (options: Partial<INumberOptions>): GeneratorFn<number> {
+  with (options: Partial<INumberOptions>): NumberGenratorFn {
     return (overrides: Partial<INumberOptions> = {}) => this.any(util.extend({}, options, overrides))
   }
 
   fixRange (range: Partial<Range>): Range {
     return util.fixRange(this.defaults, range)
   }
+}
+
+export interface INumberGenrator<T = INumberOptions> {
+  (options?: Partial<T>): number
+  with: (options: Partial<T>) => NumberGenratorFn
+  positive: (options?: Partial<T>) => NumberGenratorFn
+  negative: (options?: Partial<T>) => NumberGenratorFn
 }

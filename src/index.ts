@@ -1,22 +1,21 @@
 import DataProvider, { IDataProvider } from './core/provider'
-import { GeneratorFn } from './core/base'
-import BooleanPlugin from './categories/boolean'
-import ArrayPlugin from './categories/array'
-import IntegerPlugin from './categories/integer'
-import NumberPlugin from './categories/number'
-import ObjectPlugin, { Shape } from './categories/object'
-import StringPlugin from './categories/string'
-import SelectPlugin from './categories/select'
+import BooleanPlugin, { IBooleanGenerator } from './categories/boolean'
+import ArrayPlugin, { IArrayGenerator } from './categories/array'
+import IntegerPlugin, { IIntegerGenerator } from './categories/integer'
+import NumberPlugin, { INumberGenrator } from './categories/number'
+import ObjectPlugin, { IObjectGenerator } from './categories/object'
+import StringPlugin, { IStringGenerator } from './categories/string'
+import SelectPlugin, { ISelectGenerator } from './categories/select'
 
 export class FakeData {
   private readonly provider: IDataProvider
-  bool!: GeneratorFn<boolean>
-  int!: GeneratorFn<number>
-  number!: GeneratorFn<number>
-  string!: GeneratorFn<string>
-  array!: <T>(size: number, fn: GeneratorFn<T>) => T[]
-  object!: <T>(opts: Partial<T>) => Shape
-  select!: <T>(list: T[]) => T | T[]
+  bool!: IBooleanGenerator
+  int!: IIntegerGenerator
+  number!: INumberGenrator
+  string!: IStringGenerator
+  array!: IArrayGenerator
+  object!: IObjectGenerator
+  select!: ISelectGenerator
 
   constructor (provider: IDataProvider) {
     this.provider = provider
@@ -26,12 +25,12 @@ export class FakeData {
 
   initFakers (): void {
     this.bool = new BooleanPlugin(this.provider).any
-    this.int = new IntegerPlugin(this.provider).any
-    this.number = new NumberPlugin(this.provider).any
-    this.string = new StringPlugin(this.provider).any
-    this.array = new ArrayPlugin(this.provider).any
-    this.object = new ObjectPlugin(this.provider).any
-    this.select = new SelectPlugin(this.provider).any
+    this.int = new IntegerPlugin(this.provider).any as IIntegerGenerator
+    this.number = new NumberPlugin(this.provider).any as INumberGenrator
+    this.string = new StringPlugin(this.provider).any as IStringGenerator
+    this.array = new ArrayPlugin(this.provider).any as IArrayGenerator
+    this.object = new ObjectPlugin(this.provider).any as IObjectGenerator
+    this.select = new SelectPlugin(this.provider).any as ISelectGenerator
   }
 }
 

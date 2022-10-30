@@ -7,6 +7,8 @@ export interface ISelectOptions<T> {
   length: number
 }
 
+export type SelectGeneratorFn<T> = (length?: number) => T | T[]
+
 export default class SelectPlugin extends BasePlugin implements IPluginInterface {
   constructor (provider: IDataProvider) {
     super(provider)
@@ -31,7 +33,7 @@ export default class SelectPlugin extends BasePlugin implements IPluginInterface
   }
 
   @bind
-  with<T>(list: T[], length: number = 1): ((length?: number) => T | T[]) {
+  with<T>(list: T[], length: number = 1): SelectGeneratorFn<T> {
     return (overrides?: number) => this.any(list, overrides ?? length)
   }
 
@@ -51,4 +53,9 @@ export default class SelectPlugin extends BasePlugin implements IPluginInterface
 
     return opts
   }
+}
+
+export interface ISelectGenerator {
+  <T>(list: T[], length?: number): T | T[]
+  with: <T>(list: T[], length?: number) => SelectGeneratorFn<T>
 }

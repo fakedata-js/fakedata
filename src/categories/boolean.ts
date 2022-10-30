@@ -7,6 +7,9 @@ export interface IBooleanOptions {
 export default class BooleanPlugin extends BasePlugin implements IPluginInterface {
   @bind
   any (options: Partial<IBooleanOptions> = {}): boolean {
-    return [true, false][this.provider.randomInt(0, 2)]
+    const index = this.provider.randomInt(0, 2)
+    return index === 0
   }
 }
+
+export type IBooleanGenerator = (options?: Partial<IBooleanOptions>) => boolean

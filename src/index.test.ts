@@ -2,28 +2,28 @@ import fake from './index'
 
 describe('Entry point for fake data', () => {
   it.each([
-    ['bool', []],
-    ['int', []],
-    ['number', []],
-    ['string', []],
-    ['array', [1, () => 1]],
-    ['object', []],
-    ['select', [[1, 2]]],
-  ])('Has correct interface for %s', (prop, args) => {
-    expect(typeof fake[prop]).toBe('function')
-    expect(() => fake[prop].apply(null, args)).not.toThrowError()
+    [fake.bool, []],
+    [fake.int, []],
+    [fake.number, []],
+    [fake.string, []],
+    [fake.array, [1, () => 1]],
+    [fake.object, []],
+    [fake.select, [[1, 2]]],
+  ])('Has correct interface for %s', (fn, args) => {
+    expect(typeof fn).toBe('function')
+    expect(() => fn.apply(null, args)).not.toThrowError()
   })
 
   it.each([
-    ['int', []],
-    ['number', []],
-    ['string', []],
-    ['array', [{ length: 1, fn: () => 1 }]],
-    ['object', []],
-    ['select', [[1, 2]]],
-  ])('Has correct interface for %s.with', (prop, args) => {
-    expect(typeof fake[prop].with).toBe('function')
-    const alias = fake[prop].with.apply(null, args)
+    [fake.int.with, []],
+    [fake.number.with, []],
+    [fake.string.with, []],
+    [fake.array.with, [{ length: 1, fn: () => 1 }]],
+    [fake.object.with, []],
+    [fake.select.with, [[1, 2]]],
+  ])('Has correct interface for %s.with', (fn, args) => {
+    expect(typeof fn).toBe('function')
+    const alias = fn.apply(null, args)
     expect(alias).not.toThrowError()
   })
 

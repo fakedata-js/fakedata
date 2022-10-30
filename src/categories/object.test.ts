@@ -1,18 +1,18 @@
-import Plugin from './object'
-import StringPlugin from './string'
-import ArrayPlugin from './array'
+import Plugin, { IObjectGenerator } from './object'
+import StringPlugin, { IStringGenerator } from './string'
+import ArrayPlugin, { IArrayGenerator } from './array'
 import { createPlugin } from '../../test/util'
 
-const object: Plugin = createPlugin(Plugin)
-const string: StringPlugin = createPlugin(StringPlugin)
-const array: ArrayPlugin = createPlugin(ArrayPlugin)
+const object: IObjectGenerator = createPlugin(Plugin).any
+const string: IStringGenerator = createPlugin(StringPlugin).any
+const array: IArrayGenerator = createPlugin(ArrayPlugin).any
 
 const stringRegex = /[a-zA-Z0-9]+/
 describe('ObjectFake', () => {
   it ('Generates an object with existing generators', () => {
-    const obj = object.any({
-      key1: string.any,
-      key2: string.any,
+    const obj = object({
+      key1: string,
+      key2: string,
     })
 
     expect(obj).toMatchObject({
@@ -22,9 +22,9 @@ describe('ObjectFake', () => {
   })
 
   it ('Generates an object with constant values', () => {
-    const obj = object.any({
+    const obj = object({
       key1: 12,
-      key2: string.any,
+      key2: string,
       key3: false
     })
 
@@ -36,10 +36,10 @@ describe('ObjectFake', () => {
   })
 
   it ('Generates an object with nested fake object with alias', () => {
-    const obj = object.any({
-      key: object.any.with({
+    const obj = object({
+      key: object.with({
         key1: true,
-        key2: string.any
+        key2: string
       })
     })
 
@@ -52,10 +52,10 @@ describe('ObjectFake', () => {
   })
 
   it ('Generates an object with nested fake object without alias', () => {
-    const obj = object.any({
+    const obj = object({
       key: {
         key1: true,
-        key2: string.any
+        key2: string
       }
     })
 
@@ -69,9 +69,9 @@ describe('ObjectFake', () => {
 
   it ('Generates an object with nested fake array', () => {
     const fn = jest.fn(() => 0).mockReturnValueOnce(1).mockReturnValueOnce(2).mockReturnValueOnce(3)
-    const obj = object.any({
-      key1: array.any.with({ length: 3, fn}),
-      key2: array.any(3, () => 4)
+    const obj = object({
+      key1: array.with({ length: 3, fn}),
+      key2: array(3, () => 4)
     })
 
     expect(obj).toMatchObject({
@@ -82,9 +82,9 @@ describe('ObjectFake', () => {
 
   it ('Generates an object with nested fake array', () => {
     const fn = jest.fn(() => 0).mockReturnValueOnce(1).mockReturnValueOnce(2).mockReturnValueOnce(3)
-    const obj = object.any({
-      key1: array.any.with({ length: 3, fn}),
-      key2: array.any(3, () => 4)
+    const obj = object({
+      key1: array.with({ length: 3, fn}),
+      key2: array(3, () => 4)
     })
 
     expect(obj).toMatchObject({
@@ -94,28 +94,28 @@ describe('ObjectFake', () => {
   })
 
   it ('Returns empty object when empty config is provided', () => {
-    expect(object.any()).toStrictEqual({})
+    expect(object()).toStrictEqual({})
   })
   it ('Throws an error when config is not an object', () => {
-    expect(() => object.any(123)).toThrowError()
-    expect(() => object.any('123')).toThrowError()
-    expect(() => object.any([])).toThrowError()
+    expect(() => object(123)).toThrowError()
+    expect(() => object('123')).toThrowError()
+    expect(() => object([])).toThrowError()
   })
 
   it ('Overrides fields in aliased method', () => {
-    const alias = object.any.with({
+    const alias = object.with({
       key1: true,
-      key2: string.any,
+      key2: string,
       key3: {
         key1: false
       }
     })
 
     expect(alias({
-      key1: string.any,
+      key1: string,
       key3: {
         key1: true,
-        key2: string.any
+        key2: string
       }
     })).toMatchObject({
       key1: expect.stringMatching(stringRegex),

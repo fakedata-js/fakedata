@@ -1,5 +1,5 @@
 import { bind, Range } from '../core/util'
-import NumberPlugin, { INumberOptions } from './number'
+import NumberPlugin, { INumberGenrator, INumberOptions } from './number'
 
 export interface IntegerOptions extends INumberOptions {
   digits?: number
@@ -22,4 +22,8 @@ export default class IntegerPlugin extends NumberPlugin {
     const max = Math.pow(10, digits) - 1
     return { min, max }
   }
+}
+
+export interface IIntegerGenerator extends INumberGenrator<IntegerOptions> {
+
 }

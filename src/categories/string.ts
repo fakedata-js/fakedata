@@ -1,5 +1,5 @@
 import { DIGITS, LOWER, UPPER } from '../core/constants'
-import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
+import BasePlugin, { IPluginInterface } from '../core/base'
 import util, { bind } from '../core/util'
 import { IDataProvider } from '../core/provider'
 
@@ -13,6 +13,8 @@ export interface IStringOptions {
   digits: boolean
   hex: boolean
 }
+
+export type StringGeneratorFn = (options?: Partial<IStringOptions>) => string
 
 export default class StringPlugin extends BasePlugin implements IPluginInterface {
   readonly defaults = {
@@ -42,7 +44,7 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
   }
 
   @bind
-  with (options: Partial<IStringOptions>): GeneratorFn<string> {
+  with (options: Partial<IStringOptions>): StringGeneratorFn {
     return (overrides: Partial<IStringOptions> = {}) => this.any(util.extend({}, options, overrides))
   }
 
@@ -104,4 +106,10 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
 
     return charset
   }
+}
+
+export interface IStringGenerator {
+  (options?: Partial<IStringOptions>): string
+  with: (options: Partial<IStringOptions>) => StringGeneratorFn
+  t: (parts: TemplateStringsArray, ...expressions: any) => () => string
 }

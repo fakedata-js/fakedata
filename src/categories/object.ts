@@ -1,4 +1,4 @@
-import BasePlugin, { GeneratorFn, IPluginInterface } from '../core/base'
+import BasePlugin, { IPluginInterface } from '../core/base'
 import { IDataProvider } from '../core/provider'
 import util, { bind } from '../core/util'
 
@@ -10,6 +10,8 @@ export interface Shape {
   [key: string]: any
 }
 
+export type ObjectGeneratorFn = (options?: IObjectOptions) => Shape
+
 export default class ObjectPlugin extends BasePlugin implements IPluginInterface {
   constructor (provider: IDataProvider) {
     super(provider)
@@ -18,7 +20,7 @@ export default class ObjectPlugin extends BasePlugin implements IPluginInterface
   }
 
   @bind
-  any (options: Partial<IObjectOptions> = {}): Shape {
+  any (options: IObjectOptions = {}): Shape {
     const opts = this.opts(options)
     const _process = (partial: Partial<IObjectOptions>): Shape => {
       const obj: any = {}
@@ -41,7 +43,7 @@ export default class ObjectPlugin extends BasePlugin implements IPluginInterface
   }
 
   @bind
-  with (options: IObjectOptions): GeneratorFn<Shape> {
+  with (options: IObjectOptions): ObjectGeneratorFn {
     return (overrides: IObjectOptions = {}) => this.any(util.extend({}, options, overrides))
   }
 
@@ -51,4 +53,9 @@ export default class ObjectPlugin extends BasePlugin implements IPluginInterface
     }
     return options
   }
+}
+
+export interface IObjectGenerator {
+  (options?: IObjectOptions): Shape
+  with: (options: IObjectOptions) => ObjectGeneratorFn
 }

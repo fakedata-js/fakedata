@@ -7,6 +7,7 @@ export interface IArrayOptions<T = any> {
   fn: GeneratorFn<T>
 }
 
+export type ArrayGeneratorFn<T> = (overrides?: Partial<IArrayOptions<T>>) => T[]
 export default class ArrayPlugin extends BasePlugin implements IPluginInterface {
   constructor (provider: IDataProvider) {
     super(provider)
@@ -22,8 +23,8 @@ export default class ArrayPlugin extends BasePlugin implements IPluginInterface 
   }
 
   @bind
-  with<T>(options: Partial<IArrayOptions<T>>): (overrides: Partial<IArrayOptions<T>>) => T[] {
-    return (overrides: Partial<IArrayOptions<T>>) => {
+  with<T>(options: Partial<IArrayOptions<T>>): ArrayGeneratorFn<T> {
+    return (overrides?: Partial<IArrayOptions<T>>) => {
       const opts = util.extend({}, options, overrides)
       return this.any(opts.length, opts.fn)
     }
@@ -39,4 +40,9 @@ export default class ArrayPlugin extends BasePlugin implements IPluginInterface 
 
     return options
   }
+}
+
+export interface IArrayGenerator {
+  <T>(length: number, fn: GeneratorFn<T>): T[]
+  with: <T>(options: Partial<IArrayOptions<T>>) => ArrayGeneratorFn<T>
 }

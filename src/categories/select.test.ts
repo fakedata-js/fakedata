@@ -1,32 +1,32 @@
 import { createPlugin } from '../../test/util'
-import Plugin from './select'
+import Plugin, { ISelectGenerator } from './select'
 
-const select: Plugin = createPlugin(Plugin)
+const select: ISelectGenerator = createPlugin(Plugin).any
 
 describe('FromList', () => {
   it('Returns a list from the given list', () => {
-    expect(['Foo', 'bar']).toContain(select.any(['Foo', 'bar']))
+    expect(['Foo', 'bar']).toContain(select(['Foo', 'bar']))
   })
 
   it('Throws error when list is empty', () => {
-    expect(() => select.any([])).toThrowError()
+    expect(() => select([])).toThrowError()
   })
 
   it('Throws error when list null or undefined', () => {
-    expect(() => select.any(undefined)).toThrowError()
-    expect(() => select.any(null)).toThrowError()
-    expect(() => select.any()).toThrowError()
+    expect(() => select(undefined)).toThrowError()
+    expect(() => select(null)).toThrowError()
+    expect(() => select()).toThrowError()
   })
 
   it('Throws error when list is not an array', () => {
-    expect(() => select.any({})).toThrowError()
-    expect(() => select.any('string')).toThrowError()
-    expect(() => select.any(1234)).toThrowError()
+    expect(() => select({})).toThrowError()
+    expect(() => select('string')).toThrowError()
+    expect(() => select(1234)).toThrowError()
   })
 
 
   it('Generates a random value from a list from aliased generator', () => {
-    const alias = select.any.with(['Foo', 'bar'])
+    const alias = select.with(['Foo', 'bar'])
     expect(['Foo', 'bar']).toContain(alias())
   })
 
@@ -37,7 +37,7 @@ describe('FromList', () => {
       ['more than the values list', 6],
     ])('Generates a multiple random values from a list when generated length is %s', (label, length) => {
       const fruites = ['Apple', 'Banana', 'Kiwi', 'Grapes']
-      const list = select.any(fruites, length)
+      const list = select(fruites, length)
       expect(list).toHaveLength(length)
       list.forEach(fruite => {
         expect(fruites).toContainEqual(fruite)
@@ -50,7 +50,7 @@ describe('FromList', () => {
       ['more than the values list', 6],
     ])('Generates a multiple random values from a alias when generated length is %s', (label, length) => {
       const fruites = ['Apple', 'Banana', 'Kiwi', 'Grapes']
-      const list = (select.any.with(fruites))(length)
+      const list = (select.with(fruites))(length)
       expect(list).toHaveLength(length)
       list.forEach(fruite => {
         expect(fruites).toContainEqual(fruite)
@@ -58,7 +58,7 @@ describe('FromList', () => {
     })
 
     it('Throws error when length is < 0', () => {
-      expect(() => select.any(['Apple', 'Banana', 'Kiwi', 'Grapes'], -1)).toThrowError()
+      expect(() => select(['Apple', 'Banana', 'Kiwi', 'Grapes'], -1)).toThrowError()
     })
   })
 })
