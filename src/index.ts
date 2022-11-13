@@ -6,10 +6,13 @@ import NumberPlugin, { INumberGenrator } from './categories/number'
 import ObjectPlugin, { IObjectGenerator } from './categories/object'
 import StringPlugin, { IStringGenerator } from './categories/string'
 import SelectPlugin, { ISelectGenerator } from './categories/select'
-import MersenneTwister = require('mersenne-twister')
+import MersenneTwister from 'mersenne-twister'
 
 export class FakeData {
-  private readonly provider: IDataProvider
+  private provider!: IDataProvider
+  private generator!: MersenneTwister
+  private _seed!: number
+
   bool!: IBooleanGenerator
   int!: IIntegerGenerator
   number!: INumberGenrator
@@ -17,20 +20,19 @@ export class FakeData {
   array!: IArrayGenerator
   object!: IObjectGenerator
   select!: ISelectGenerator
-  generator: any
-  _seed!: number
 
   constructor (fn?: RandomGenerator) {
-    this.init()
-    const provider: IDataProvider = new DataProvider(fn != null ? fn : this.generator.random.bind(this.generator))
-    this.provider = provider
+    this.init(fn)
     this.initFakers()
   }
 
-  init (): void {
+  init (fn?: RandomGenerator): void {
     const seed = Date.now()
     this.generator = new MersenneTwister(seed)
     this.seed(seed)
+
+    const provider: IDataProvider = new DataProvider(fn != null ? fn : this.generator.random.bind(this.generator))
+    this.provider = provider
   }
 
   seed (seed: number): void {
