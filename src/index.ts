@@ -63,4 +63,17 @@ export class FakeData {
   }
 }
 
-export default new FakeData()
+/**
+ * Default global instance for faker interface
+ */
+const faker: IFaker = new FakeData()
+
+export default faker
+
+/**
+ * Class for creating new Faker instances
+ */
+export interface IFaker {
+  /** Generate a random boolean value */
+  bool: IBooleanGenerator
+}
