@@ -1,4 +1,4 @@
-import DataProvider, { IDataProvider } from './core/provider'
+import DataProvider, { IDataProvider, RandomGenerator } from './core/provider'
 import BooleanPlugin, { IBooleanGenerator } from './categories/boolean'
 import ArrayPlugin, { IArrayGenerator } from './categories/array'
 import IntegerPlugin, { IIntegerGenerator } from './categories/integer'
@@ -17,7 +17,9 @@ export class FakeData {
   object!: IObjectGenerator
   select!: ISelectGenerator
 
-  constructor (provider: IDataProvider) {
+  constructor (fn?: RandomGenerator) {
+    fn = fn || Math.random
+    const provider: IDataProvider = new DataProvider(fn)
     this.provider = provider
 
     this.initFakers()
@@ -34,4 +36,4 @@ export class FakeData {
   }
 }
 
-export default new FakeData(new DataProvider(Math.random))
+export default new FakeData()
