@@ -1,4 +1,4 @@
-import fake from './index'
+import fake, { FakeData } from './index'
 
 describe('Entry point for fake data', () => {
   it.each([
@@ -55,4 +55,14 @@ describe('Entry point for fake data', () => {
     })
     expect(obj).toMatchObject({ key: [2, 2]})
   })
+
+  it ('Uses supplied random number generated', () => {
+    const mockedRandom = jest.fn(() => 0)
+    const faker = new FakeData(mockedRandom)
+
+    const value = faker.int({ min: 10, max: 20 })
+
+    expect(mockedRandom).toBeCalledTimes(1)
+  })
+
 })
