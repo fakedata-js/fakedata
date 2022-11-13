@@ -2,26 +2,26 @@ import fake from './index'
 
 describe('Entry point for fake data', () => {
   it.each([
-    [fake.bool, []],
-    [fake.int, []],
-    [fake.number, []],
-    [fake.string, []],
-    [fake.array, [1, () => 1]],
-    [fake.object, []],
-    [fake.select, [[1, 2]]],
-  ])('Has correct interface for %s', (fn, args) => {
+    ['fake.bool', fake.bool, []],
+    ['fake.int', fake.int, []],
+    ['fake.number', fake.number, []],
+    ['fake.string', fake.string, []],
+    ['fake.array', fake.array, [1, () => 1]],
+    ['fake.object', fake.object, []],
+    ['fake.select', fake.select, [[1, 2]]],
+  ])('Has correct interface for %s', (label, fn, args) => {
     expect(typeof fn).toBe('function')
     expect(() => fn.apply(null, args)).not.toThrowError()
   })
 
   it.each([
-    [fake.int.with, []],
-    [fake.number.with, []],
-    [fake.string.with, []],
-    [fake.array.with, [{ length: 1, fn: () => 1 }]],
-    [fake.object.with, []],
-    [fake.select.with, [[1, 2]]],
-  ])('Has correct interface for %s.with', (fn, args) => {
+    ['fake.int.with', fake.int.with, []],
+    ['fake.number.with', fake.number.with, []],
+    ['fake.string.with', fake.string.with, []],
+    ['fake.array.with', fake.array.with, [{ length: 1, fn: () => 1 }]],
+    ['fake.object.with', fake.object.with, []],
+    ['fake.select.with', fake.select.with, [[1, 2]]],
+  ])('Has correct interface for %s', (label, fn, args) => {
     expect(typeof fn).toBe('function')
     const alias = fn.apply(null, args)
     expect(alias).not.toThrowError()
