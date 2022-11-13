@@ -74,6 +74,67 @@ export default faker
  * Class for creating new Faker instances
  */
 export interface IFaker {
-  /** Generate a random boolean value */
+  /**
+   * Generate a random boolean value
+   * 
+   * @group boolean
+   * @example
+   * fake.bool() // true or false
+   */
   bool: IBooleanGenerator
+
+  /**
+   * generate a natural number
+   * 
+   * @group number
+   * @example
+   * // generates an integer between -10000000 and 10000000
+   * fake.int()
+   * 
+   * // generate an integer within a custom range
+   * fake.int({ min: 0, max: 100 })  // generates a value between 0 and 100
+   * fake.int({ min: 0 })            // generates a value between 0 and 10000000
+   * fake.int({ max: 0 })            // generates a value between -10000000 and 0
+   * 
+   * // generate an integer with fix digits
+   * // generates a value with 3 digits (i.e. between 100 and 999)
+   * fake.int({ digits: 3 })
+   */
+  int: IIntegerGenerator
+  /**
+   * Generate a floating point number
+   * 
+   * @group number
+   * @example
+   * fake.number() // generates a float between -10000000 and 10000000
+   * 
+   * // generate a floating point number within a custom range
+   * fake.number({ min: 0, max: 100 })  // generates a value between 0 and 100
+   * fake.number({ min: 0 })            // generates a value between 0 and 10000000
+   * fake.number({ max: 0 })            // generates a value between -10000000 and 0
+   */
+  number: INumberGenrator
+
+  /**
+   * #### fake.string
+   * Generate a random string
+   * @group string
+   * 
+   * @example
+   * fake.string() // generate a alpha numeric string with length between 2 and 10
+   * 
+   * // generate a string which only contains letters 'a', 'b' and 'c' (e.g. abcbbca)
+   * fake.string({ charset: 'abc' })
+   * 
+   * #### fake.string.t
+   * Generate a custom formatted string using literal string syntax
+   * @group string
+   * 
+   * @example
+   * fake.string.t`I have ${fake.int.with({ digits: 1 })} eggs.\`
+   * 
+   * // Returns a string which looks like
+   * 'I have 4 eggs.'
+   */
+  string: IStringGenerator
 }

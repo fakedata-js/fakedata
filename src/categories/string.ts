@@ -146,9 +146,22 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
   }
 }
 
+/**
+ * String generator interface
+ */
 export interface IStringGenerator {
+   /**
+   * Generate a random string
+   * 
+   * @example
+   * fake.string() // generate a alpha numeric string with length between 2 and 10
+   * 
+   * // generate a string which only contains letters 'a', 'b' and 'c' (e.g. abcbbca)
+   * fake.string({ charset: 'abc' })
+   */
   (options?: Partial<IStringOptions>): string
+
   with: (options: Partial<IStringOptions>) => StringGeneratorFn
-  t: (parts: TemplateStringsArray, ...expressions: any) => () => string
+  t(parts: TemplateStringsArray, ...expressions: any): () => string
   from: (template: string) => string
 }

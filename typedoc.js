@@ -15,6 +15,7 @@ module.exports = {
   "out": "docs",
   "plugin": [
     // "typedoc-plugin-markdown",
+    // "typedoc-plugin-mtos",
     "typedoc-plugin-merge-modules"
   ],
   "excludeNotDocumented": true
