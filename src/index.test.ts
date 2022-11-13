@@ -65,4 +65,24 @@ describe('Entry point for fake data', () => {
     expect(mockedRandom).toBeCalledTimes(1)
   })
 
+  describe ('Seeding', () => {
+    it ('Setting seed to previously set seed resets the random numbers', () => {
+      fake.seed(123)
+      const array1 = fake.array(10, fake.int.with({ min: 10, max: 20 }))
+
+      fake.seed(123)
+      const array2 = fake.array(10, fake.int.with({ min: 10, max: 20 }))
+
+      expect(array1).toStrictEqual(array2)
+    })
+
+    it ('Resetting seed resets the random numbers', () => {
+      fake.seed(Date.now())
+      const array1 = fake.array(10, fake.int.with({ min: 10, max: 20 }))
+      fake.reset()
+      const array2 = fake.array(10, fake.int.with({ min: 10, max: 20 }))
+
+      expect(array1).toStrictEqual(array2)
+    })
+  })
 })
