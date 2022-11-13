@@ -1,4 +1,4 @@
-import DataProvider, { IDataProvider, RandomGenerator } from './core/provider'
+import DataProvider, { IDataProvider } from './core/provider'
 import BooleanPlugin, { IBooleanGenerator } from './categories/boolean'
 import ArrayPlugin, { IArrayGenerator } from './categories/array'
 import IntegerPlugin, { IIntegerGenerator } from './categories/integer'
@@ -17,22 +17,29 @@ export class FakeData {
   object!: IObjectGenerator
   select!: ISelectGenerator
 
-  constructor (fn?: RandomGenerator) {
-    fn = fn || Math.random
-    const provider: IDataProvider = new DataProvider(fn)
+  constructor () {
+    const provider: IDataProvider = new DataProvider(Math.random)
     this.provider = provider
 
     this.initFakers()
   }
 
   initFakers (): void {
-    this.bool = new BooleanPlugin(this.provider).any
-    this.int = new IntegerPlugin(this.provider).any as IIntegerGenerator
-    this.number = new NumberPlugin(this.provider).any as INumberGenrator
-    this.string = new StringPlugin(this.provider).any as IStringGenerator
-    this.array = new ArrayPlugin(this.provider).any as IArrayGenerator
-    this.object = new ObjectPlugin(this.provider).any as IObjectGenerator
-    this.select = new SelectPlugin(this.provider).any as ISelectGenerator
+    this.provider.set('bool', new BooleanPlugin(this.provider))
+    this.provider.set('int', new IntegerPlugin(this.provider))
+    this.provider.set('number', new NumberPlugin(this.provider))
+    this.provider.set('string', new StringPlugin(this.provider))
+    this.provider.set('array', new ArrayPlugin(this.provider))
+    this.provider.set('object', new ObjectPlugin(this.provider))
+    this.provider.set('select', new SelectPlugin(this.provider))
+
+    this.bool = this.provider.get('bool').any
+    this.int = this.provider.get('int').any as IIntegerGenerator
+    this.number = this.provider.get('number').any as INumberGenrator
+    this.string = this.provider.get('string').any as IStringGenerator
+    this.array = this.provider.get('array').any as IArrayGenerator
+    this.object = this.provider.get('object').any as IObjectGenerator
+    this.select = this.provider.get('select').any as ISelectGenerator
   }
 }
 

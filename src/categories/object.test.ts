@@ -3,9 +3,9 @@ import StringPlugin, { IStringGenerator } from './string'
 import ArrayPlugin, { IArrayGenerator } from './array'
 import { createPlugin } from '../../test/util'
 
-const object: IObjectGenerator = createPlugin(Plugin).any
-const string: IStringGenerator = createPlugin(StringPlugin).any
-const array: IArrayGenerator = createPlugin(ArrayPlugin).any
+const object: IObjectGenerator = createPlugin(Plugin, 'object').any
+const string: IStringGenerator = createPlugin(StringPlugin, 'string').any
+const array: IArrayGenerator = createPlugin(ArrayPlugin, 'array').any
 
 const stringRegex = /[a-zA-Z0-9]+/
 describe('ObjectFake', () => {
@@ -96,6 +96,7 @@ describe('ObjectFake', () => {
   it ('Returns empty object when empty config is provided', () => {
     expect(object()).toStrictEqual({})
   })
+
   it ('Throws an error when config is not an object', () => {
     expect(() => object(123)).toThrowError()
     expect(() => object('123')).toThrowError()
@@ -124,6 +125,18 @@ describe('ObjectFake', () => {
         key1: true,
         key2: expect.stringMatching(stringRegex)
       }
+    })
+  })
+
+  it ('Strings used are run through template processing', () => {
+    const value = object({
+      key1: 'true',
+      key2: '+91-{#####}-{#####}'
+    })
+
+    expect(value).toMatchObject({
+      key1: 'true',
+      key2: expect.stringMatching(/\+91-\d{5}-\d{5}/)
     })
   })
 })

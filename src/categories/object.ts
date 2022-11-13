@@ -1,6 +1,7 @@
 import BasePlugin, { IPluginInterface } from '../core/base'
 import { IDataProvider } from '../core/provider'
 import util, { bind } from '../core/util'
+import StringPlugin from './string'
 
 export interface IObjectOptions {
   [key: string]: any
@@ -22,6 +23,7 @@ export default class ObjectPlugin extends BasePlugin implements IPluginInterface
   @bind
   any (options: IObjectOptions = {}): Shape {
     const opts = this.opts(options)
+    const string = this.provider.get('string') as StringPlugin
     const _process = (partial: Partial<IObjectOptions>): Shape => {
       const obj: any = {}
       for (const key in partial) {
@@ -30,6 +32,8 @@ export default class ObjectPlugin extends BasePlugin implements IPluginInterface
           value = generator()
         } else if (util.isObject(generator)) {
           value = _process(generator)
+        } else if (typeof generator === 'string') {
+          value = string.from(generator)
         } else {
           value = generator
         }
