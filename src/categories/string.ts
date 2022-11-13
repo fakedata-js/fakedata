@@ -3,6 +3,8 @@ import BasePlugin, { IPluginInterface } from '../core/base'
 import util, { bind } from '../core/util'
 import { IDataProvider } from '../core/provider'
 
+const TEMPLATE_REGEX = /(\\{)|{([a-zA-Z#]+)}/g
+
 export interface IStringOptions {
   length?: number
   min: number
@@ -12,6 +14,7 @@ export interface IStringOptions {
   lower: boolean
   digits: boolean
   hex: boolean
+  template: string
 }
 
 export type StringGeneratorFn = (options?: Partial<IStringOptions>) => string
@@ -31,11 +34,15 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
 
     this.expose('with', this.with)
     this.expose('t', this.fromTemplate)
+    this.expose('from', this.from)
   }
 
   @bind
   any (options: Partial<IStringOptions> = {}): string {
     const opts = this.opts(options)
+    if (opts.template != null) {
+      return this.from(opts.template)
+    }
     const length = opts.length ?? this.provider.randomInt(opts.min, opts.max)
     const charset = this.getCharset(opts)
 
@@ -106,10 +113,42 @@ export default class StringPlugin extends BasePlugin implements IPluginInterface
 
     return charset
   }
+
+  @bind
+  from (input: string): string {
+    if (input == null) {
+      return input
+    }
+    return input.replace(TEMPLATE_REGEX, (match: string, ...groups: string[]) => {
+      const group = groups[0] != null ? groups[0] : groups[1]
+      return this.replacer(group)
+    })
+  }
+
+  @bind
+  private replacer (match: string): string {
+    if (match.startsWith('\\{')) {
+      return '{'
+    }
+    return match.split('').map((c: string, index: number) => {
+      let charset = ''
+      if (c === 'a') {
+        charset = LOWER
+      } else if (c === 'A') {
+        charset = UPPER
+      } else if (c === '#') {
+        charset = DIGITS
+      } else {
+        return ''
+      }
+      return this.any({ charset, length: 1 })
+    }).join('')
+  }
 }
 
 export interface IStringGenerator {
   (options?: Partial<IStringOptions>): string
   with: (options: Partial<IStringOptions>) => StringGeneratorFn
   t: (parts: TemplateStringsArray, ...expressions: any) => () => string
+  from: (template: string) => string
 }

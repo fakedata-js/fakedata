@@ -1,5 +1,10 @@
 import DataProvider from "../src/core/provider";
 
-export function createPlugin(PluginClass) {
-  return new PluginClass(new DataProvider(Math.random))
+const provider = new DataProvider(Math.random)
+export function createPlugin(PluginClass, name?: string) {
+  const plugin = new PluginClass(provider)
+  if (name) {
+    provider.set(name, plugin)
+  }
+  return plugin
 }

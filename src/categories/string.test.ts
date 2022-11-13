@@ -69,6 +69,36 @@ describe('StringFake', () => {
         })
     })
 
+    describe('from', () => {
+        it.each([
+            ['no escapes', '{aaa}-{AAA}{#####}', /[a-z]{3}-[A-Z]{3}\d{5}/],
+            ['escape in the begining', '\\{aaa}-{AAA}{#####}', /{aaa}-[A-Z]{3}\d{5}/],
+            ['espace in middle', '{aaa}-\\{AAA}{#####}', /[a-z]{3}-{AAA}\d{5}/],
+            ['nested braces', '{{aaa}}-{{AAA}}{{#####}}', /{[a-z]{3}}-{[A-Z]{3}}{\d{5}}/],
+            ['mutiple charset', '{a#A}', /[a-z]\d[A-Z]/],
+            ['unknown characters', '{ABBB#}', /[A-Z]\d/],
+            ['empty braces', '{}', /{}/],
+        ])('parses template correctly with %s', (label, template, regex) => {
+            expect(string.from(template)).toMatch(regex)
+        })
+
+        it ('Returns emtpy string when empty string is given', () => {
+            expect(string.from('')).toEqual('')
+        }) 
+
+        it ('Returns undefined string when undefined is given', () => {
+            expect(string.from(undefined)).not.toBeDefined()
+        })
+
+        it ('Generates string from alias created from template', () => {
+            const alias = string.with({ template: '+91-{#####}-{#####}' })
+            const value1 = alias(), value2 = alias()
+            expect(value1).toMatch(/\+91-\d{5}-\d{5}/)
+            expect(value2).toMatch(/\+91-\d{5}-\d{5}/)
+            expect(value1).not.toEqual(value2)
+        }) 
+    })
+
     describe('String template', () => {
         it('Generates string without an placeholder', () => {
             const alias = string.t`Hello world`
