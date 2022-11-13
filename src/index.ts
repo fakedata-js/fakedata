@@ -34,4 +34,17 @@ export class FakeData {
   }
 }
 
-export default new FakeData(new DataProvider(Math.random))
+/**
+ * Default global instance for faker interface
+ */
+const faker: IFaker = new FakeData(new DataProvider(Math.random))
+
+export default faker
+
+/**
+ * Class for creating new Faker instances
+ */
+export interface IFaker {
+  /** Generate a random boolean value */
+  bool: IBooleanGenerator
+}
